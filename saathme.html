@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tarang Travel</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+  /* ---------------- Reset & Vars ---------------- */
+:root {
+  --orange: #f97316;
+  --orange-dark: #d66e10;
+  --bg: #fbfbfb;
+  --card: #ffffff;
+  --muted: #777;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+html,
+body {
+  height: 100%
+}
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Fixed logo */
+.fixed-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 140px;
+  height: auto;
+  z-index: 1200
+}
+
+/* Page layout - full viewport */
+.page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 40px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.page.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation for elements within sections */
+.page.visible .page-title {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+.page.visible .left-col {
+  animation: fadeInLeft 0.8s ease-out 0.4s both;
+}
+
+.page.visible .right-col {
+  animation: fadeInRight 0.8s ease-out 0.4s both;
+}
+
+.page.visible .offerings-grid {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.page.visible .testimonial-row {
+  animation: fadeInUp 0.8s ease-out 0.3s both;
+}
+
+.page.visible .contact-container {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* top-center tagline on hero */
+.top-center {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+}
+
+.top-center i {
+  color: var(--orange);
+}
+
+/* Hero */
+#hero {
+  background-image: url('first.jpeg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+}
+
+.hero-content {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.hero-thin {
+  font-size: 3.2rem;
+  font-weight: 300;
+  margin-bottom: 6px;
+}
+
+.hero-bold {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #fff7e6;
+  margin-bottom: 18px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 22px;
+  border-radius: 28px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: var(--orange);
+  color: white;
+  box-shadow: 0 6px 18px rgba(249, 115, 22, 0.15);
+  transition: all .18s ease;
+}
+
+.btn-primary:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+}
+
+/* Wonderful India - big background with only heading */
+#wonderful {
+  background-image: url('2.png');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.page-title {
+  font-size: 6.6rem;
+  font-weight: 800;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+.page_title {
+  font-size: 6.6rem;
+  font-weight: 800;
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  color: #fff;   /* 🔥 converted into white */
+}
+
+
+/* Travel Made Easy - two column with creative enhancements */
+/* ===== Travel Made Easy — match screenshot ===== */
+.two-column {
+  /* centered container with comfortable max width */
+  display: flex;
+  align-items: center;         /* vertical centering */
+  justify-content: space-between;
+  gap: 48px;
+  padding: 60px 36px;
+  background: linear-gradient(135deg, #fafafa 0%, #f1f8fb 100%);
+  position: relative;
+  overflow: hidden;
+  max-width: 1220px;
+  margin: 0 auto;              /* center the section content on page */
+  box-sizing: border-box;
+  min-height: 68vh;            /* similar vertical size as screenshot */
+}
+
+/* left column (text) */
+.left-col {
+  flex: 0 0 55%;               /* ~55% width */
+  max-width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;     /* vertically center content within column */
+  text-align: left;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+/* small pin icon spacing */
+.pin-line { margin-bottom: 18px; display:flex; align-items:center; gap:12px; }
+.pin-line i { color: var(--orange); font-size:1.2rem; }
+
+/* big heading */
+.left-col h1 {
+  font-size: 3.2rem;
+  line-height: 1.05;
+  margin-bottom: 18px;
+  font-weight: 800;
+  color: #111;
+}
+
+/* paragraph */
+.lead {
+  max-width: 62ch;
+  color: #666;
+  font-size: 1.05rem;
+  margin-bottom: 26px;
+}
+
+/* CTA buttons — pill, orange, shadow (left button highlighted by default) */
+.cta-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+/* primary pill */
+.cta-row .btn-primary {
+  background: linear-gradient(45deg, var(--orange), var(--orange-dark));
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px rgba(249,115,22,0.18);
+  border: none;
+  font-weight: 700;
+}
+
+/* secondary pill (outline) */
+.cta-row .btn-secondary {
+  background: #fff;
+  color: var(--orange);
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 2px solid var(--orange);
+  font-weight: 700;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+/* hover */
+.cta-row .btn-primary:hover { transform: translateY(-3px); }
+.cta-row .btn-secondary:hover { transform: translateY(-3px); background: var(--orange); color:#fff; }
+
+/* right column (image) */
+.right-col {
+  flex: 0 0 42%;               /* ~42% width to match screenshot spacing */
+  max-width: 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+/* feature image styling */
+.right-col .feature-image {
+  width: 100%;
+  height: auto;
+  max-width: 540px;            /* keep large but constrained */
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 30px 80px rgba(20,20,20,0.18);
+  border: 6px solid rgba(255,255,255,0.85); /* subtle white frame so image pops */
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+/* slight hover lift */
+.right-col .feature-image:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 40px 100px rgba(20,20,20,0.22);
+}
+
+/* responsive stacking: keep the look similar on tablet/mobile */
+@media (max-width: 980px) {
+  .two-column {
+    flex-direction: column;
+    padding: 36px 20px;
+    min-height: auto;
+  }
+  .left-col, .right-col {
+    max-width: 100%;
+    flex: 0 0 100%;
+  }
+  .left-col {
+    text-align: center;
+    align-items: center;
+  }
+  .left-col h1 { font-size: 2.4rem; }
+  .lead { margin-left: 0; margin-right: 0; }
+  .right-col .feature-image { max-width: 90%; }
+}
+
+/* small devices */
+@media (max-width: 640px) {
+  .left-col h1 { font-size: 2rem; }
+  .cta-row { justify-content: center; }
+  .pin-line i { font-size: 1.05rem; }
+}
+
+/* Ripple effect */
+.cta-row .btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  pointer-events: none;
+}
+
+.cta-row .btn.ripple::before {
+  width: 300px;
+  height: 300px;
+}
+
+.cta-row .btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.cta-row .btn:hover::before {
+  left: 100%;
+}
+
+.cta-row .btn-primary {
+  background: linear-gradient(45deg, var(--orange), var(--orange-dark));
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.3);
+  color: white;
+  border: none;
+}
+
+.cta-row .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(249, 115, 22, 0.4);
+}
+
+.cta-row .btn-secondary {
+  background: transparent;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+}
+
+.cta-row .btn-secondary:hover {
+  background: var(--orange);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.right-col {
+  max-width: 50%;
+  position: relative;
+  z-index: 2;
+}
+
+.right-col img.feature-image {
+  width: 100%;
+  max-width: 550px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.right-col img.feature-image:hover {
+  transform: scale(1.05) rotate(1deg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+}
+
+.right-col::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(249,115,22,0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: -1;
+  animation: float 6s ease-in-out infinite;
+}
+/* keep image on the right on wide screens */
+@media (min-width: 981px){
+  .two-column{
+    display:flex;
+    flex-direction: row;          /* left-to-right flow */
+    justify-content: space-between;
+    align-items: center;
+  }
+  .left-col{  order: 1; }         /* text first */
+  .right-col{ order: 2; }         /* image second (right side) */
+}
+
+
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Packages page */
+#packages {
+  background: linear-gradient(135deg, #a0522d, #2b0808);
+  padding-top: 28px;
+}
+
+#packages .page-title {
+  font-size: 2.6rem;
+  margin-bottom: 18px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Carousel wrapper */
+.carousel-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carousel-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding: 8px 6px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.carousel-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+/* Each package card - vertical rectangular */
+.package-card {
+  flex: 0 0 calc(33.333% - 16px);
+  /* 3 visible */
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(25, 25, 25, 0.06);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+  min-width: 290px;
+}
+
+.package-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(23, 23, 23, 0.12);
+}
+
+.package-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.package-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.package-bullets {
+  color: var(--muted);
+  list-style: disc;
+  margin-left: 18px;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.book-now-inside {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 10px 18px;
+  border-radius: 24px;
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: all .15s;
+}
+
+.book-now-inside:hover {
+  background: var(--orange-dark);
+  transform: translateY(-2px);
+}
+
+.book-now-inside:active {
+  transform: scale(0.95);
+  transition: transform 0.1s ease;
+}
+
+.book-now-inside.clicked {
+  animation: buttonPulse 0.6s ease-out;
+}
+
+/* Carousel buttons (desktop) */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  transition: all .15s ease;
+  z-index: 80;
+}
+
+.left-btn {
+  left: -6px;
+}
+
+.right-btn {
+  right: -6px;
+}
+
+.carousel-btn:hover {
+  transform: translateY(-50%) scale(1.04);
+}
+
+/* package description small text */
+.package-description {
+  margin-top: 20px;
+  color: #f0f0f0;
+  max-width: 900px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+/* Offerings grid 2x2 */
+#offerings {
+  position: relative;
+  background-image: url('offering.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 40px;
+  overflow: hidden;
+}
+
+/* Overlay for blur + dark effect */
+#offerings::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);  /* 🔥 dark intensity */
+  backdrop-filter: blur(4px);       /* 🔥 blur effect */
+  z-index: 1;
+}
+
+/* Content stays above the overlay */
+#offerings > * {
+  position: relative;
+  z-index: 2;
+}
+
+
+.offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.offering-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.offering-card img {
+  width: 120px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.offering-card h3 {
+  font-size: 1.05rem;
+}
+
+.offering-card p {
+  color: var(--muted);
+  font-size: 0.95rem
+}
+
+/* Testimonials */
+#travelers {
+  position: relative;
+  padding: 40px;
+  height: 100vh;
+
+  /* Background image */
+  background: url('favorite.jpeg') no-repeat center center/cover;
+  overflow: hidden;
+}
+
+/* Dark + blur overlay */
+#travelers::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* dark overlay */
+  backdrop-filter: blur(1px);       /* blur effect */
+  z-index: 1;
+}
+
+/* Content above overlay */
+#travelers > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Testimonial row */
+.testimonial-row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Testimonial card */
+.testimonial-card {
+  width: 320px;
+  background: rgba(255, 255, 255, 0.9); /* transparent white for bg */
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-6px);
+}
+
+.testimonial-card .comment {
+  color: #333;
+  font-style: italic;
+}
+
+/* Profile */
+.profile {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.profile img {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+/* Contact section */
+.contact-section {
+  background: #f8f9fa;
+}
+
+.contact-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 1700px;
+  width: 100%;
+  height: 500px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+}
+
+.contact-left {
+  flex: 1;
+  background: url('offering.jpg') center/cover;
+  position: relative;
+}
+
+.contact-image {
+  display: none;
+}
+
+.contact-right {
+  flex: 1;
+  background: #e8e8e8;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: #7ba05b;
+  margin-bottom: 25px;
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.contact-subtitle {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 45px;
+  text-align: left;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.contact-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+}
+
+.phone-icon {
+  background: #7ba05b;
+}
+
+.email-icon {
+  background: #7ba05b;
+}
+
+.location-icon {
+  background: #7ba05b;
+}
+
+.contact-text {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Remove any extra spacing above the contact section */
+#contact {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+/* Further adjust contact section position to reduce gap with previous section */
+#contact {
+  margin-top: -20px;
+  /* negative margin to pull the section upward */
+  padding-top: 0;
+}
+
+#contact h2 {
+  margin-top: 0;
+}
+
+/* Further adjustments to reduce gap on the contact card and 'Get in Touch' title */
+#contact {
+  margin: 0;
+  /* removes external spacing */
+  padding: 0;
+  /* removes internal spacing */
+}
+
+/* Assuming there's a card container inside the contact section */
+#contact .contact-card {
+  margin: 0;
+  padding: 0;
+}
+
+#contact h2 {
+  margin: 0;
+  /* remove all margins around the title */
+  padding: 5px 0;
+  /* minimal vertical padding for readability */
+}
+
+/* Responsive */
+@media(max-width:980px) {
+  .contact-container {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .contact-right {
+    text-align: center;
+  }
+
+  .contact-title {
+    font-size: 2.5rem;
+  }
+}
+
+/* ---------------- Modal styles (centered, large) ---------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1500;
+  padding: 20px;
+}
+
+.modal {
+  background: #fff;
+  width: 70%;
+  max-width: 960px;
+  border-radius: 18px;
+  padding: 26px;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
+  max-height: 86vh;
+  overflow: auto;
+  position: relative;
+  animation: none;
+}
+
+.modal.animate-in {
+  animation: scaleIn .22s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(.96);
+    opacity: 0
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+.modal-close {
+  position: absolute;
+  right: 18px;
+  top: 12px;
+  font-size: 22px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* modal content */
+.modal h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #222;
+}
+
+.modal h3 {
+  font-size: 16px;
+  margin: 12px 0;
+  color: #333;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.modal-package-title {
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+}
+
+.modal-package-bullets {
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+/* package type grid inside modal */
+.package-type-grid {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.package-type-card {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.package-type-card.selected {
+  background: var(--orange);
+  color: ;var(--orange);
+  border-color: var(--orange);
+  transform: translateY(-4px);
+}
+
+/* billing */
+.billing-summary p {
+  margin: 6px 0;
+  color: #222;
+}
+
+.billing-summary h3 {
+  margin-top: 8px;
+  color: #111;
+}
+
+/* buttons row */
+.btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+  align-items: center;
+}
+
+.btn-row .next-btn {
+  background: var(--orange);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-row .prev-btn {
+  background: #fff;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+/* small inputs in modal */
+.modal input[type=text],
+.modal input[type=email],
+.modal input[type=tel],
+.modal input[type=date],
+.modal select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+}
+
+/* responsive */
+@media(max-width:980px) {
+  .package-card {
+    flex: 0 0 calc(50% - 14px)
+  }
+
+  /* 2 visible for medium */
+  .carousel-btn {
+    display: none
+  }
+
+  .modal {
+    width: 92%
+  }
+
+  .two-column {
+    gap: 30px;
+    padding: 40px 28px;
+    flex-direction: column;
+  }
+
+  .left-col, .right-col {
+    max-width: 100%;
+  }
+
+  .left-col h1 {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+
+  .cta-row {
+    justify-content: center;
+  }
+
+  .right-col img.feature-image {
+    max-width: 100%;
+  }
+}
+
+@media(max-width:640px) {
+  .package-card {
+    flex: 0 0 82%;
+    min-width: 0
+  }
+
+  /* 1 visible on small */
+  .top-center {
+    display: none
+  }
+
+  .page {
+    padding: 18px
+  }
+
+  .hero-thin {
+    font-size: 1.8rem
+  }
+
+  .hero-bold {
+    font-size: 2.4rem
+  }
+}
+/* Hero Booking Modal Styles */
+.hero-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.hero-modal {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 550px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+.hero-modal-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.hero-modal h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--orange-dark);
+}
+
+.hero-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: left;
+}
+
+.hero-modal input,
+.hero-modal select {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.hero-modal input:focus,
+.hero-modal select:focus {
+  outline: none;
+  border-color: var(--orange);
+  box-shadow: 0 0 5px rgba(249,115,22,0.5);
+}
+
+.package-type-grid {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.package-type-card {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.package-type-card.selected {
+  border: 2px solid var(--orange);
+  background: rgba(249,115,22,0.1);
+}
+.hero-modal {
+  max-height: 90vh; /* limit modal height */
+  overflow-y: auto; /* allow vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
+}
+</style>
+</head>
+<body >
+
+  <!-- Fixed Logo (top-left) -->
+  <img src="logo2.png" alt="Tarang Travel Logo" class="fixed-logo">
+
+  <!-- Section 1: Hero -->
+  <section id="hero" class="page">
+    <div class="top-center">
+     <!-- <i class="fas fa-map-marker-alt"></i>
+      <span class="brand-text">Tarang Tours &amp; Travels</span>-->
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-thin">Flow with ,</h1>
+      <h2 class="hero-bold">Waves of Tarang</h2>
+      <div class="hero-buttons">
+        <button class="btn btn-primary" id="explorePackagesBtn">Explore Packages</button>
+        <button class="btn btn-primary" id="bookYourJourneyBtn">Book Your Journey</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Wonderful India -->
+  <section id="wonderful" class="page">
+    <h1 class="page-title">Wonderful India</h1>
+  </section>
+
+  <!-- Section 3: Travel Made Easy -->
+  
+<section id="travel-easy" class="page two-column" aria-labelledby="travel-easy-title">
+  <div class="left-col">
+    <div class="pin-line">
+      <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+      <span class="section-badge">Premium Experience</span>
+    </div>
+
+    <h1 id="travel-easy-title">
+      Travel made <span class="highlight-text">easy</span>
+    </h1>
+
+    <p class="lead">
+      Tarang is more than movement — celebrate heritage, feel the Varanasi ghats, wander Rajasthan forts, trek the Himalayas and float the Kerala backwaters with ease.
+    </p>
+
+    <!-- Features are optional; they’re styled to be subtle so the layout still mirrors the screenshot -->
+    <div class="features-list" role="list">
+      <div class="feature-item" role="listitem">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span>Personalized itineraries</span>
+      </div>
+      <div class="feature-item" role="listitem">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span>24/7 travel support</span>
+      </div>
+      <div class="feature-item" role="listitem">
+        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <span>Best price guarantee</span>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <button class="btn btn-primary" id="explorePackagesBtn" onclick="navigateToExplore()">
+        <i class="fas fa-compass" aria-hidden="true"></i> Explore Packages
+      </button>
+      <button class="btn btn-secondary" id="ourOfferingsBtn">
+        <i class="fas fa-star" aria-hidden="true"></i> Our Offerings
+      </button>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <img src="3.jpeg" alt="Varanasi ghats at sunset from a wooden boat" class="feature-image" />
+  </div>
+</section>
+  <!-- Section 4: Packages (carousel) -->
+  <section id="packages" class="page">
+    <h1 class="page-title">Our Packages</h1>
+
+    <div class="carousel-wrapper" aria-hidden="false">
+      <button class="carousel-btn left-btn" aria-label="Scroll left"><i class="fas fa-chevron-left"></i></button>
+
+      <div class="carousel-container" id="carousel">
+        <!-- 9 package cards, each vertical rectangle; replace images with real ones -->
+        <!-- 1 -->
+        <article class="package-card" data-package="Nature Escape">
+          <img src="pehla.jpeg" alt="Nature Escape">
+          <div class="card-body">
+            <h3 class="package-name">Nature Escape</h3>
+			<p>Himachal & Manali Retreat<p>
+            <ul class="package-bullets">
+              <li>Explore forests and waterfalls</li>
+              <li>Camping under stars</li>
+              <li>Nature trails</li>
+              <li>Bird watching</li>
+              <li>Eco-friendly stays</li>
+            </ul>
+            <button class="btn book-now-inside">RECONNECT WITH NATURE</button>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="package-card" data-package="Romantic Gateways">
+          <img src="dusra.jpeg" alt="Romantic Gateways">
+          <div class="card-body">
+            <h3 class="package-name">Romantic Gateways</h3>
+			<p>Udaipur & Mount Abu<p>
+            <ul class="package-bullets">
+              <li>Private candlelight dinners</li>
+              <li>Couple spa sessions</li>
+              <li>Sunset views</li>
+              <li>Luxury stays</li>
+              <li>Scenic walks</li>
+            </ul>
+            <button class="btn book-now-inside">BEGIN YOUR LOVE STORY HERE</button>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="package-card" data-package="Family Vacations">
+          <img src="teesra.jpeg" alt="Family Vacations">
+          <div class="card-body">
+            <h3 class="package-name">Family Vacations</h3>
+			<p>Kerela Backwaters & Hills<p>
+            <ul class="package-bullets">
+              <li>Kid-friendly activities</li>
+              <li>Theme park visits</li>
+              <li>Resort stays</li>
+              <li>Guided tours</li>
+              <li>Fun family games</li>
+            </ul>
+            <button class="btn book-now-inside">ESCAPE WITH FAMILY</button>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="package-card" data-package="Adventure Trips">
+          <img src="chautha.jpeg" alt="Adventure Trips">
+          <div class="card-body">
+            <h3 class="package-name">Adventure Trips</h3>
+			<p>Leh Ladakh Expedition<p>
+            <ul class="package-bullets">
+              <li>Trekking and climbing</li>
+              <li>River rafting</li>
+              <li>Paragliding</li>
+              <li>Zip-lining</li>
+              <li>Campfires</li>
+            </ul>
+            <button class="btn book-now-inside">RIDE THE HIMALAYAS</button>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="package-card" data-package="Village Escape">
+          <img src="pachwa.jpeg" alt="Village Escape">
+          <div class="card-body">
+            <h3 class="package-name">Village Escape</h3>
+			<p>The Soul of Meghalaya<p>
+            <ul class="package-bullets">
+              <li>Stay in traditional homes</li>
+              <li>Local cuisine tasting</li>
+              <li>Cultural performances</li>
+              <li>Farming experiences</li>
+              <li>Handicraft workshops</li>
+            </ul>
+            <button class="btn book-now-inside">STEP INTO SIMPLICITY</button>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="package-card" data-package="Beach Bliss">
+          <img src="chatha.jpeg" alt="Beach Bliss">
+          <div class="card-body">
+            <h3 class="package-name">Beach Bliss</h3>
+			<p>Goa Gateway </p>
+            <ul class="package-bullets">
+              <li>Sunbathing on golden sands</li>
+              <li>Beach sports</li>
+              <li>Water adventures</li>
+              <li>Seafood delights</li>
+              <li>Sunset cruises</li>
+            </ul>
+            <button class="btn book-now-inside">WAVES ARE CALLING</button>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="package-card" data-package="Into the Wild">
+          <img src="satva.jpeg" alt="Into the Wild">
+          <div class="card-body">
+            <h3 class="package-name">Into the Wild</h3>
+			<p>Ranthambore & Jim Corbett<p>
+            <ul class="package-bullets">
+              <li>Jungle safaris</li>
+              <li>Wildlife photography</li>
+              <li>Camping in wilderness</li>
+              <li>Birding tours</li>
+              <li>Eco trekking</li>
+            </ul>
+            <button class="btn book-now-inside">ANSWER THE JUNGLE CALLS</button>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="package-card" data-package="Culinary Trail">
+          <img src="aathwa.jpeg" alt="Culinary Trail">
+          <div class="card-body">
+            <h3 class="package-name">Culinary Trail</h3>
+			<p>Flavors of North India <p>
+            <ul class="package-bullets">
+              <li>Street food tasting</li>
+              <li>Cooking workshops</li>
+              <li>Food market visits</li>
+              <li>Chef interactions</li>
+              <li>Wine & local drinks</li>
+            </ul>
+            <button class="btn book-now-inside">JOURNEY FOR YOUR TASTEBUDS</button>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="package-card" data-package="Weekend Trails">
+          <img src="nava.jpeg" alt="Weekend Trails">
+          <div class="card-body">
+            <h3 class="package-name">Weekend Trails</h3>
+			<p>Mumbai & Around<p>
+            <ul class="package-bullets">
+              <li>Short weekend getaways</li>
+              <li>Quick adventures</li>
+              <li>Relaxing stays</li>
+              <li>Scenic routes</li>
+              <li>Easy bookings</li>
+            </ul>
+            <button class="btn book-now-inside">CITY OFF, TRAILS ON</button>
+          </div>
+        </article>
+
+      </div>
+
+      <button class="carousel-btn right-btn" aria-label="Scroll right"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <p class="package-description">Explore our specially curated packages for every traveler. Choose your next adventure and make memories for a lifetime!</p>
+  </section>
+
+  <!-- Section 5: Our Offerings -->
+  <section id="offerings" class="page">
+    <h1 class="page_title">Our Offerings</h1>
+    <div class="offerings-grid">
+      <div class="offering-card">
+        <img src="flight.jpeg" alt="Flight Bookings">
+        <h3>Flight Bookings</h3>
+        <p>Book domestic and international flights at best prices.</p>
+      </div>
+      <div class="offering-card">
+        <img src="tours.jpeg" alt="Tours and Activities">
+        <h3>Tours & Activities</h3>
+        <p>Guided tours, sightseeing, and curated experiences.</p>
+      </div>
+      <div class="offering-card">
+        <img src="airport.jpeg" alt="Airport Transfers">
+        <h3>Airport Transfers</h3>
+        <p>Safe and comfortable transfers to and from the airport.</p>
+      </div>
+      <div class="offering-card">
+        <img src="hotel.jpeg" alt="Hotel Bookings">
+        <h3>Hotel Bookings</h3>
+        <p>Handpicked hotels to match your comfort and budget.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 6: Favorite Travelers -->
+  <section id="travelers" class="page">
+    <h1 class="page_title">Our Favorite Travelers</h1>
+    <div class="testimonial-row">
+      <div class="testimonial-card">
+        <p class="comment">"Tarang made our Rajasthan trip unforgettable — everything was perfectly organized."</p>
+        <div class="profile">
+          <img src="rohit.jpg" alt="Rohit">
+          <div class="profile-info">
+            <div class="name">Rohit Sharma</div>
+            <div class="stars">★★★★☆</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="comment">"Varanasi ghats at sunrise was magical. Highly recommended!"</p>
+        <div class="profile">
+          <img src="nirmala.jpg" alt="Anjali">
+          <div class="profile-info">
+            <div class="name">Nirmala Sitaraman</div>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <p class="comment">"Personalized itinerary and great support throughout. Loved it."</p>
+        <div class="profile">
+          <img src="modiji.jpg" alt="Vikram">
+          <div class="profile-info">
+            <div class="name">Narendra Modi</div>
+            <div class="stars">★★★★☆</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 7: Get in Touch -->
+  <section id="contact" class="page contact-section">
+    <div class="contact-container">
+      <div class="contact-left">
+        <!-- Background image applied via CSS -->
+      </div>
+      <div class="contact-right">
+        <h1 class="contact-title">Get in Touch</h1>
+        <p class="contact-subtitle">
+          Need help choosing the right Package?<br>
+          Our Team is just a message away to guide<br>
+          you through the process
+        </p>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon phone-icon">
+              <i class="fas fa-phone"></i>
+            </div>
+            <span class="contact-text">3333-444-555</span>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon email-icon">
+              <i class="fas fa-envelope"></i>
+            </div>
+            <span class="contact-text">abc123@gmial.com</span>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon location-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <span class="contact-text">Busy Street,Mumbai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Modal (centered, large professional) -->
+  <div class="modal-overlay" id="bookingOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="modalClose" title="Close">&times;</button>
+      <h2 id="modalTitle">Book Your Package</h2>
+
+      <!-- Step 1: Package Description -->
+      <div class="step" id="m-step-1">
+        <h3>Package</h3>
+        <div id="modal-package-title" class="modal-package-title">Select a package</div>
+        <div id="modal-package-bullets" class="modal-package-bullets"></div>
+        <div class="btn-row">
+          <button class="prev-btn" disabled>Previous</button>
+          <button class="next-btn" data-next="2">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Package Type -->
+      <div class="step" id="m-step-2">
+        <h3>Choose Package Type</h3>
+        <div class="package-type-grid">
+          <div class="package-type-card" data-type="Budget" data-price="500">Budget<br><small>$500 / person</small></div>
+          <div class="package-type-card" data-type="Standard" data-price="1000">Standard<br><small>$1000 / person</small></div>
+          <div class="package-type-card" data-type="Luxury" data-price="2000">Luxury<br><small>$2000 / person</small></div>
+        </div>
+        <div class="btn-row">
+          <button class="prev-btn" data-prev="1">Previous</button>
+          <button class="next-btn" data-next="3">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Booker Details -->
+      <div class="step" id="m-step-3">
+        <h3>Booker Details</h3>
+        <input id="bookerName" type="text" placeholder="Full name">
+        <input id="bookerEmail" type="email" placeholder="Email">
+        <input id="bookerPhone" type="tel" placeholder="Phone number">
+        <div class="btn-row">
+          <button class="prev-btn" data-prev="2">Previous</button>
+          <button class="next-btn" data-next="4">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Travel Details -->
+      <div class="step" id="m-step-4">
+        <h3>Travel Details</h3>
+        <label>Number of travelers</label>
+        <select id="numTravelers">
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option>
+        </select>
+        <label>Date of travel</label>
+        <input id="travelDate" type="date">
+        <div class="btn-row">
+          <button class="prev-btn" data-prev="3">Previous</button>
+          <button class="next-btn" data-next="5">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Review & Billing -->
+      <div class="step" id="m-step-5">
+        <h3>Review & Billing</h3>
+        <div id="billingSummary" class="billing-summary"></div>
+        <div class="btn-row">
+          <button class="prev-btn" data-prev="4">Previous</button>
+          <button class="next-btn" data-next="6">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 6: Payment -->
+      <div class="step" id="m-step-6">
+        <h3>Choose Payment Method</h3>
+        <div class="payment-list">
+          <label><input type="radio" name="paymentMethod" value="UPI"> UPI</label>
+          <label><input type="radio" name="paymentMethod" value="Card"> Cards</label>
+          <label><input type="radio" name="paymentMethod" value="NetBanking"> NetBanking</label>
+        </div>
+        <div class="btn-row">
+          <button class="prev-btn" data-prev="5">Previous</button>
+          <button class="next-btn" id="confirmPayment">Confirm & Pay</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- Hero Booking Modal -->
+<div class="hero-modal-overlay" id="heroBookingModal" aria-hidden="true">
+  <div class="hero-modal">
+    <button class="hero-modal-close" id="heroModalClose">&times;</button>
+    <h2>Book Your Journey</h2>
+    <p>Fill out the details below to start your adventure with us!</p>
+    
+    <form id="heroBookingForm">
+      <input type="text" id="heroName" placeholder="Full Name" required>
+      <input type="email" id="heroEmail" placeholder="Email" required>
+      <input type="tel" id="heroPhone" placeholder="Phone Number" required>
+      
+      <label for="heroPackage">Select Package:</label>
+      <select id="heroPackage" required>
+        <option value="">--Select Package--</option>
+        <option value="Nature Escape">Nature Escape</option>
+        <option value="Romantic Gateways">Romantic Gateways</option>
+        <option value="Family Vacations">Family Vacations</option>
+        <option value="Adventure Trips">Adventure Trips</option>
+        <option value="Village Escape">Village Escape</option>
+        <option value="Beach Bliss">Beach Bliss</option>
+        <option value="Into the Wild">Into the Wild</option>
+        <option value="Culinary Trail">Culinary Trail</option>
+        <option value="Weekend Trails">Weekend Trails</option>
+      </select>
+
+      <label for="packageType">Package Type:</label>
+      <div class="package-type-grid">
+        <div class="package-type-card" data-type="Budget" data-price="500">Budget<br><small>$500 / person</small></div>
+        <div class="package-type-card" data-type="Standard" data-price="1000">Standard<br><small>$1000 / person</small></div>
+        <div class="package-type-card" data-type="Luxury" data-price="2000">Luxury<br><small>$2000 / person</small></div>
+      </div>
+
+      <label for="numTravelers">Number of Travelers:</label>
+      <select id="numTravelers" required>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+
+      <label for="heroDate">Travel Date:</label>
+      <input type="date" id="heroDate" required>
+      
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+
+  <script>
+  /* ----------------- Basic DOM refs ----------------- */
+const sections = Array.from(document.querySelectorAll('.page'));
+let currentSection = 0;
+
+/* ----------------- Full-page controlled scrolling (smooth with rAF) ----------------- */
+let isScrolling = false;
+let isAnimating = false;
+let scrollCooldownUntil = 0;
+const SCROLL_COOLDOWN_MS = 500;
+
+function scrollToSection(index){
+  if(index < 0 || index >= sections.length) return;
+  const vh = window.innerHeight;
+  const targetY = index * vh;
+  animateScrollTo(targetY, Math.min(800, Math.max(300, Math.abs(targetY - window.pageYOffset) * 0.8)));
+  currentSection = index;
+}
+function animateScrollTo(targetY, duration) {
+  isAnimating = true;
+  const startY = window.pageYOffset;
+  const distance = targetY - startY;
+  const startTime = performance.now();
+
+  function step(currentTime) {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeInOutQuad = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+    const currentY = startY + distance * easeInOutQuad;
+    window.scrollTo(0, currentY);
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      isAnimating = false;
+      updateCurrentSection(); // ensure sync after animation
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function updateCurrentSection(){
+  const scrollY = window.pageYOffset;
+  const vh = window.innerHeight;
+  let activeIndex = Math.round(scrollY / vh);
+  activeIndex = Math.max(0, Math.min(sections.length - 1, activeIndex));
+  currentSection = activeIndex;
+}
+
+function canScrollWithinSection(section, deltaY){
+  if (!section) return false;
+  const rect = section.getBoundingClientRect();
+  const tolerance = 4;
+  if (deltaY > 0) {
+    return rect.bottom > window.innerHeight + tolerance;
+  }
+  if (deltaY < 0) {
+    return rect.top < -tolerance;
+  }
+  return false;
+}
+
+let scrollUpdateScheduled = false;
+// Removed scroll event listener to prevent automatic section updates during natural scrolling
+
+/* allow wheel to navigate pages, but block when mouse is over carousel or modal open */
+const carouselContainer = document.getElementById('carousel');
+const overlay = document.getElementById('bookingOverlay');
+
+// Wheel event listener removed to disable auto-scroll between sections
+
+function releaseScrollLock(){
+  if (!isScrolling) return;
+  if (performance.now() >= scrollCooldownUntil) {
+    isScrolling = false;
+    return;
+  }
+  requestAnimationFrame(releaseScrollLock);
+}
+
+/* ----------------- Keyboard navigation removed to disable auto-scroll ----------------- */
+// Arrow key navigation disabled
+
+/* ----------------- Carousel: buttons + drag + touch ----------------- */
+const leftBtn = document.querySelector('.left-btn');
+const rightBtn = document.querySelector('.right-btn');
+const carousel = carouselContainer;
+let isDown = false, startX, scrollLeft;
+
+function getScrollStep(){
+  // scroll by one card width (approx)
+  const visibleCount = window.innerWidth <= 640 ? 1 : (window.innerWidth <= 980 ? 2 : 3);
+  return Math.floor(carousel.clientWidth / visibleCount);
+}
+
+if (leftBtn && rightBtn && carousel) {
+  rightBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: getScrollStep(), behavior: 'smooth' });
+  });
+  leftBtn.addEventListener('click', () => {
+    carousel.scrollBy({ left: -getScrollStep(), behavior: 'smooth' });
+  });
+
+  // mouse drag
+  carousel.addEventListener('mousedown', (e) => {
+    isDown = true;
+    carousel.classList.add('dragging');
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+  carousel.addEventListener('mouseleave', () => { isDown = false; carousel.classList.remove('dragging'); });
+  carousel.addEventListener('mouseup', () => { isDown = false; carousel.classList.remove('dragging'); });
+  carousel.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 1; // scroll speed
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+
+  // touch
+  carousel.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+  carousel.addEventListener('touchmove', (e) => {
+    const x = e.touches[0].pageX - carousel.offsetLeft;
+    const walk = (x - startX);
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+}
+
+/* ----------------- Modal (multi-step) logic ----------------- */
+const bookButtons = document.querySelectorAll('.book-now-inside');
+const modalOverlay = document.getElementById('bookingOverlay');
+const modalDialog = modalOverlay ? modalOverlay.querySelector('.modal') : null;
+const modalClose = document.getElementById('modalClose');
+
+const steps = Array.from(document.querySelectorAll('.step'));
+function showModalStep(stepIndex){
+  steps.forEach((s, idx) => s.classList.toggle('active', idx === stepIndex));
+}
+
+function triggerModalAnimation(){
+  if (!modalDialog) return;
+  modalDialog.classList.remove('animate-in');
+  void modalDialog.offsetWidth; // force reflow to restart animation
+  modalDialog.classList.add('animate-in');
+}
+
+// default hide
+if (modalOverlay) {
+  modalOverlay.style.display = 'none';
+  modalOverlay.setAttribute('aria-hidden', 'true');
+}
+
+// state
+let modalState = {
+  packageName: null,
+  packageBulletsHTML: null,
+  type: null,
+  pricePerPerson: 0,
+  bookerName: '',
+  bookerEmail: '',
+  bookerPhone: '',
+  numTravelers: 1,
+  travelDate: ''
+};
+
+// open modal when Book Now clicked
+bookButtons.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    const button = e.target;
+    triggerButtonAnimation(button);
+
+    const card = btn.closest('.package-card');
+    const packageName = card.dataset.package;
+    const bullets = card.querySelector('.package-bullets').innerHTML;
+    modalState.packageName = packageName;
+    modalState.packageBulletsHTML = bullets;
+
+    // fill modal content
+    document.getElementById('modal-package-title').innerText = packageName;
+    document.getElementById('modal-package-bullets').innerHTML = `<ul style="margin-left:18px; color:#666;">${bullets}</ul>`;
+
+    if (!modalOverlay) return;
+    modalOverlay.style.display = 'flex';
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    triggerModalAnimation();
+    showModalStep(0); // step index 0 = m-step-1
+  });
+});
+
+// close modal
+if (modalClose) {
+  modalClose.addEventListener('click', closeModal);
+}
+if (modalOverlay) {
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) closeModal();
+  });
+}
+function closeModal(){
+  if (!modalOverlay) return;
+  modalOverlay.style.display = 'none';
+  modalOverlay.setAttribute('aria-hidden', 'true');
+  if (modalDialog) {
+    modalDialog.classList.remove('animate-in');
+  }
+}
+
+/* Prev / Next controls inside modal */
+document.addEventListener('click', (e) => {
+  const target = e.target;
+
+  // Next buttons
+  if (target.matches('.next-btn')) {
+    const next = target.dataset.next ? parseInt(target.dataset.next,10) : null;
+    if (next) {
+      // validation before moving
+      if (!validateModalStep(next - 1)) return;
+      showModalStep(next - 1);
+    } else if (target.id === 'confirmPayment') {
+      // final confirm (can be extended to actually process payment)
+      alert('Payment confirmed. Thank you!');
+      closeModal();
+    }
+  }
+
+  // Prev buttons
+  if (target.matches('.prev-btn')) {
+    const prev = target.dataset.prev ? parseInt(target.dataset.prev,10) : null;
+    if (prev) showModalStep(prev - 1);
+    else showModalStep(0);
+  }
+
+  // Package type selection
+  if (target.closest('.package-type-card')) {
+    const card = target.closest('.package-type-card');
+    document.querySelectorAll('.package-type-card').forEach(c=>c.classList.remove('selected'));
+    card.classList.add('selected');
+    modalState.type = card.dataset.type;
+    modalState.pricePerPerson = Number(card.dataset.price);
+  }
+});
+
+/* Validate modal steps: returns true if OK, otherwise shows a small alert */
+function validateModalStep(stepIdx){
+  // stepIdx 0 = after step1 moving to step2 (no validation needed)
+  if (stepIdx === 1) return true;
+
+  // step 2 -> step3 (after selecting package type)
+  if (stepIdx === 2) {
+    if (!modalState.type) { alert('Please select a package type (Budget/Standard/Luxury).'); return false; }
+    return true;
+  }
+
+  // step 3 -> step4 (booker details)
+  if (stepIdx === 3) {
+    const name = document.getElementById('bookerName').value.trim();
+    const email = document.getElementById('bookerEmail').value.trim();
+    const phone = document.getElementById('bookerPhone').value.trim();
+    if (!name || !email || !phone) { alert('Please enter name, email, and phone.'); return false; }
+    modalState.bookerName = name; modalState.bookerEmail = email; modalState.bookerPhone = phone;
+    return true;
+  }
+
+  // step 4 -> step5 (travel details)
+  if (stepIdx === 4) {
+    const nv = document.getElementById('numTravelers').value;
+    const dt = document.getElementById('travelDate').value;
+    if (!nv || !dt) { alert('Please select number of travelers and travel date.'); return false; }
+    modalState.numTravelers = Number(nv);
+    modalState.travelDate = dt;
+    // calculate billing and populate
+    populateBilling();
+    return true;
+  }
+
+  // step 5 -> step6 (no validation)
+  return true;
+}
+
+/* populate billing */
+function populateBilling(){
+  const price = modalState.pricePerPerson || 0;
+  const n = modalState.numTravelers || 1;
+  const subtotal = price * n;
+  const gst = subtotal * 0.18;
+  const total = subtotal + gst;
+
+  const html = `
+    <p><strong>Package:</strong> ${modalState.packageName}</p>
+    <p><strong>Type:</strong> ${modalState.type} ($${price}/person)</p>
+    <p><strong>Travelers:</strong> ${n}</p>
+    <p><strong>Travel date:</strong> ${modalState.travelDate}</p>
+    <hr>
+    <p><strong>Subtotal:</strong> $${subtotal.toFixed(2)}</p>
+    <p><strong>GST (18%):</strong> $${gst.toFixed(2)}</p>
+    <h3>Total: $${total.toFixed(2)}</h3>
+  `;
+  document.getElementById('billingSummary').innerHTML = html;
+}
+
+/* Confirm Payment click (on final step button with id confirmPayment) */
+const confirmPaymentBtn = document.getElementById('confirmPayment');
+if (confirmPaymentBtn) {
+  confirmPaymentBtn.addEventListener('click', () => {
+    const pay = document.querySelector('input[name="paymentMethod"]:checked');
+    if (!pay) { alert('Please choose a payment method.'); return; }
+    // Normally here you'd integrate payment gateway; we'll just show summary
+    alert('Booking confirmed! Payment method: ' + pay.value + '. Thank you!');
+    closeModal();
+  });
+}
+
+/* Ensure initial state: page loads at top */
+document.addEventListener('DOMContentLoaded', () => {
+  window.scrollTo(0, 0);
+  currentSection = 0;
+
+  // Make the hero section visible immediately
+  const heroSection = document.getElementById('hero');
+  if (heroSection) {
+    heroSection.classList.add('visible');
+  }
+});
+document.getElementById("explorePackagesBtn").addEventListener('click',
+  (e) => {
+    const button = e.target.closest('.btn');
+    triggerButtonAnimation(button);
+    smoothScrollToSection('packages');
+  }
+);
+function navigateToExplore() {
+  // Scroll smoothly to the section with id 'packages'
+  const targetSection = document.getElementById('packages');
+  if (!targetSection) return;
+
+  targetSection.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+
+document.getElementById("ourOfferingsBtn").addEventListener('click',
+  (e) => {
+    const button = e.target.closest('.btn');
+    triggerButtonAnimation(button);
+    smoothScrollToSection('offerings');
+  }
+);
+
+function triggerButtonAnimation(button) {
+  if (!button) return;
+
+  // Add ripple effect
+  button.classList.add('ripple');
+
+  // Add pulse animation
+  button.classList.add('clicked');
+
+  // Remove ripple after animation
+  setTimeout(() => {
+    button.classList.remove('ripple');
+  }, 600);
+
+  // Remove pulse class after animation completes
+  setTimeout(() => {
+    button.classList.remove('clicked');
+  }, 600);
+}
+
+/* ----------------- Section Transition Animations ----------------- */
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOptions);
+
+// Observe all sections
+document.querySelectorAll('.page').forEach(section => {
+  sectionObserver.observe(section);
+});
+
+/* ----------------- Enhanced Smooth Scrolling with Animation Trigger ----------------- */
+function smoothScrollToSection(sectionId) {
+  const targetSection = document.getElementById(sectionId);
+  if (!targetSection) return;
+
+  // First ensure the target section is visible (in case it hasn't been scrolled to yet)
+  targetSection.classList.add('visible');
+
+  // Then scroll to it smoothly
+  targetSection.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+// Hero Booking Modal
+const heroBookingBtn = document.getElementById('bookYourJourneyBtn');
+const heroModal = document.getElementById('heroBookingModal');
+const heroModalClose = document.getElementById('heroModalClose');
+const packageCards = document.querySelectorAll('.package-type-card');
+
+heroBookingBtn.addEventListener('click', () => {
+  heroModal.style.display = 'flex';
+  heroModal.setAttribute('aria-hidden', 'false');
+});
+
+heroModalClose.addEventListener('click', () => {
+  heroModal.style.display = 'none';
+  heroModal.setAttribute('aria-hidden', 'true');
+});
+
+// Close modal on clicking outside
+heroModal.addEventListener('click', (e) => {
+  if(e.target === heroModal){
+    heroModal.style.display = 'none';
+    heroModal.setAttribute('aria-hidden', 'true');
+  }
+});
+
+// Select package type
+packageCards.forEach(card => {
+  card.addEventListener('click', () => {
+    packageCards.forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+  });
+});
+
+// Form submission demo
+document.getElementById('heroBookingForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  
+  const selectedType = document.querySelector('.package-type-card.selected');
+  if(!selectedType){
+    alert('Please select a package type!');
+    return;
+  }
+
+  alert(`Booking Details:
+Name: ${document.getElementById('heroName').value}
+Email: ${document.getElementById('heroEmail').value}
+Phone: ${document.getElementById('heroPhone').value}
+Package: ${document.getElementById('heroPackage').value}
+Type: ${selectedType.dataset.type}
+Travelers: ${document.getElementById('numTravelers').value}
+Date: ${document.getElementById('heroDate').value}
+`);
+  heroModal.style.display = 'none';
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('travelDate');
+    if (!input) return;
+
+    // Build today's date as YYYY-MM-DD (required format for date inputs)
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const todayStr = `${yyyy}-${mm}-${dd}`;
+
+    // Disallow past dates and optionally prefill with today
+    input.min = todayStr;             // prevents selecting earlier dates in the picker
+    if (!input.value) input.value = todayStr;  // optional: start at today
+
+    // Extra guard: if a past date is typed manually, show a message
+    input.addEventListener('input', () => {
+      if (input.value && input.value < input.min) {
+        input.setCustomValidity(`Please choose a date on or after ${todayStr}.`);
+      } else {
+        input.setCustomValidity('');
+      }
+    });
+  });
+
+  </script>
+</body>
+</html>
