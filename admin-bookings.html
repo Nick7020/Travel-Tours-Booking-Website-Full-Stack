@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link active">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Bookings Management</h1>
+                    <p class="header-subtitle">View and manage all travel bookings</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="connectionStatus" class="connection-status">
+            🔄 Checking connection...
+        </div>
+
+        <!-- Filter and Actions Bar -->
+        <div class="toolbar">
+            <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search bookings..." id="searchInput">
+            </div>
+            <div class="toolbar-actions">
+                <select class="filter-select">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="confirmed">Confirmed</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+                <button class="primary" onclick="loadBookings()">
+                    <span>🔄</span>
+                    <span>Refresh</span>
+                </button>
+                <button class="success" onclick="exportData()">
+                    <span>📊</span>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bookings Grid -->
+        <div id="bookingsList" class="bookings-grid">
+            <div class="no-data">
+                <div class="no-data-icon">📋</div>
+                <div>Loading bookings...</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        // Load bookings on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadBookings();
+            
+            // Search functionality
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const bookingCards = document.querySelectorAll('.booking-card');
+                
+                bookingCards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

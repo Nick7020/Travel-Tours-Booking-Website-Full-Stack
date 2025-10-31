@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link active">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Dashboard</h1>
+                    <p class="header-subtitle">Overview of your travel business performance</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="connectionStatus" class="connection-status">
+            🔄 Checking connection...
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-number" id="totalBookings">0</div>
+                <div class="stat-label">Total Bookings</div>
+                <div class="stat-trend">↗ +12.5%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⏳</div>
+                <div class="stat-number" id="pendingBookings">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-number" id="confirmedBookings">0</div>
+                <div class="stat-label">Confirmed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number" id="revenue">$0</div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Booking Trends</h3>
+                    <select class="filter-select" id="trendsFilter" onchange="updateTrendsChart()">
+                        <option value="today">Today</option>
+                        <option value="7" selected>Last 7 days</option>
+                        <option value="30">Last 30 days</option>
+                        <option value="90">Last 90 days</option>
+                    </select>
+                </div>
+                <div class="chart-placeholder" id="trendsChart">
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                    <div class="chart-bar" style="height: 0%"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Popular Destinations</h3>
+                </div>
+                <div class="destination-list">
+                    <div class="destination-item">
+                        <div class="destination-info">
+                            <span class="destination-name">Bali, Indonesia</span>
+                            <span class="destination-count">45 bookings</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="destination-item">
+                        <div class="destination-info">
+                            <span class="destination-name">Paris, France</span>
+                            <span class="destination-count">38 bookings</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 76%"></div>
+                        </div>
+                    </div>
+                    <div class="destination-item">
+                        <div class="destination-info">
+                            <span class="destination-name">Tokyo, Japan</span>
+                            <span class="destination-count">32 bookings</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 64%"></div>
+                        </div>
+                    </div>
+                    <div class="destination-item">
+                        <div class="destination-info">
+                            <span class="destination-name">Dubai, UAE</span>
+                            <span class="destination-count">28 bookings</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 56%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="section-header">
+            <h2 class="section-title">Recent Activity</h2>
+            <a href="admin-bookings.html" class="view-all-link">View All →</a>
+        </div>
+
+        <div class="activity-feed">
+            <div class="activity-item">
+                <div class="activity-icon success">✓</div>
+                <div class="activity-content">
+                    <div class="activity-title">New booking confirmed</div>
+                    <div class="activity-meta">John Doe booked Bali Adventure Package</div>
+                </div>
+                <div class="activity-time">2 min ago</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon pending">⏳</div>
+                <div class="activity-content">
+                    <div class="activity-title">Payment pending</div>
+                    <div class="activity-meta">Sarah Smith - Paris Romantic Getaway</div>
+                </div>
+                <div class="activity-time">15 min ago</div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon info">📧</div>
+                <div class="activity-content">
+                    <div class="activity-title">New customer inquiry</div>
+                    <div class="activity-meta">Mike Johnson asked about Dubai packages</div>
+                </div>
+                <div class="activity-time">1 hour ago</div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        // Global bookings data
+        let allBookings = [];
+        
+        // Load dashboard data
+        async function loadDashboardData() {
+            await checkConnection();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    allBookings = result.data;
+                    
+                    // Update stats
+                    updateStats(allBookings);
+                    
+                    // Update recent activity feed
+                    updateActivityFeed(allBookings);
+                    
+                    // Update booking trends chart
+                    updateTrendsChart();
+                    
+                    // Update popular destinations
+                    updatePopularDestinations(allBookings);
+                } else {
+                    throw new Error('Failed to fetch bookings');
+                }
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+        
+        // Update booking trends chart
+        function updateTrendsChart() {
+            const filter = document.getElementById('trendsFilter').value;
+            const chartContainer = document.getElementById('trendsChart');
+            
+            if (allBookings.length === 0) {
+                chartContainer.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-secondary);">No booking data available</div>';
+                return;
+            }
+            
+            let days = parseInt(filter);
+            let chartData = [];
+            let labels = [];
+            
+            if (filter === 'today') {
+                // Show hourly data for today
+                chartData = getHourlyBookings();
+                labels = ['12am-4am', '4am-8am', '8am-12pm', '12pm-4pm', '4pm-8pm', '8pm-12am'];
+            } else {
+                // Show daily data
+                chartData = getDailyBookings(days);
+                labels = getDateLabels(days);
+            }
+            
+            // Calculate max for scaling
+            const maxBookings = Math.max(...chartData, 1);
+            
+            // Generate chart HTML
+            let chartHTML = '';
+            for (let i = 0; i < chartData.length; i++) {
+                const height = (chartData[i] / maxBookings) * 100;
+                const count = chartData[i];
+                chartHTML += `
+                    <div class="chart-bar-group">
+                        <div class="chart-bar" style="height: ${height}%" title="${labels[i]}: ${count} bookings"></div>
+                        <div class="chart-label">${labels[i]}</div>
+                    </div>
+                `;
+            }
+            
+            chartContainer.innerHTML = chartHTML;
+        }
+        
+        // Get daily bookings count for the last N days
+        function getDailyBookings(days) {
+            const counts = new Array(days).fill(0);
+            const now = new Date();
+            
+            allBookings.forEach(booking => {
+                const bookingDate = new Date(booking.createdAt);
+                const diffTime = now - bookingDate;
+                const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+                
+                if (diffDays >= 0 && diffDays < days) {
+                    counts[days - 1 - diffDays]++;
+                }
+            });
+            
+            return counts;
+        }
+        
+        // Get hourly bookings for today
+        function getHourlyBookings() {
+            const counts = new Array(6).fill(0); // 6 time slots of 4 hours each
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            allBookings.forEach(booking => {
+                const bookingDate = new Date(booking.createdAt);
+                if (bookingDate >= today) {
+                    const hours = bookingDate.getHours();
+                    const slot = Math.floor(hours / 4);
+                    counts[slot]++;
+                }
+            });
+            
+            return counts;
+        }
+        
+        // Get date labels for chart
+        function getDateLabels(days) {
+            const labels = [];
+            const now = new Date();
+            
+            for (let i = days - 1; i >= 0; i--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - i);
+                
+                if (days <= 7) {
+                    // Show day names for week view
+                    labels.push(date.toLocaleDateString('en-US', { weekday: 'short' }));
+                } else if (days <= 30) {
+                    // Show date for month view
+                    labels.push(date.getDate().toString());
+                } else {
+                    // Show week numbers for 90 days
+                    const weekNum = Math.ceil((days - i) / 7);
+                    if (i % 7 === 0) labels.push(`W${weekNum}`);
+                    else labels.push('');
+                }
+            }
+            
+            return labels;
+        }
+        
+        // Update popular destinations
+        function updatePopularDestinations(bookings) {
+            const destinationList = document.querySelector('.destination-list');
+            if (!destinationList || bookings.length === 0) return;
+            
+            // Count bookings by destination
+            const destinationCounts = {};
+            bookings.forEach(booking => {
+                const dest = booking.packageName || 'Unknown';
+                destinationCounts[dest] = (destinationCounts[dest] || 0) + 1;
+            });
+            
+            // Sort by count and take top 5
+            const sorted = Object.entries(destinationCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            if (sorted.length === 0) {
+                destinationList.innerHTML = '<div style="color: var(--text-secondary); text-align: center; padding: 2rem;">No destination data available</div>';
+                return;
+            }
+            
+            const maxCount = sorted[0][1];
+            
+            destinationList.innerHTML = sorted.map(([name, count]) => {
+                const percentage = (count / maxCount) * 100;
+                return `
+                    <div class="destination-item">
+                        <div class="destination-info">
+                            <span class="destination-name">${name}</span>
+                            <span class="destination-count">${count} bookings</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${percentage}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Update activity feed with recent bookings
+        function updateActivityFeed(bookings) {
+            const activityFeed = document.querySelector('.activity-feed');
+            if (!activityFeed || bookings.length === 0) return;
+            
+            // Sort by most recent and take last 5
+            const recentBookings = bookings
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .slice(0, 5);
+            
+            activityFeed.innerHTML = recentBookings.map(booking => {
+                const isConfirmed = booking.status === 'Confirmed';
+                const isPending = booking.status === 'Pending';
+                const isCancelled = booking.status === 'Cancelled';
+                
+                let icon, iconClass, title;
+                if (isConfirmed) {
+                    icon = '✓';
+                    iconClass = 'success';
+                    title = 'Booking confirmed';
+                } else if (isCancelled) {
+                    icon = '✕';
+                    iconClass = 'danger';
+                    title = 'Booking cancelled';
+                } else {
+                    icon = '⏳';
+                    iconClass = 'pending';
+                    title = 'Booking pending';
+                }
+                
+                const timeAgo = getTimeAgo(booking.createdAt);
+                
+                return `
+                    <div class="activity-item">
+                        <div class="activity-icon ${iconClass}">${icon}</div>
+                        <div class="activity-content">
+                            <div class="activity-title">${title}</div>
+                            <div class="activity-meta">${booking.bookerDetails.name} - ${booking.packageName}</div>
+                        </div>
+                        <div class="activity-time">${timeAgo}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Calculate time ago
+        function getTimeAgo(dateString) {
+            const now = new Date();
+            const date = new Date(dateString);
+            const seconds = Math.floor((now - date) / 1000);
+            
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)} min ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+            if (seconds < 604800) return `${Math.floor(seconds / 86400)} days ago`;
+            return date.toLocaleDateString();
+        }
+        
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDashboardData();
+            
+            // Refresh dashboard every 15 seconds
+            setInterval(loadDashboardData, 15000);
+        });
+    </script>
+</body>
+</html>

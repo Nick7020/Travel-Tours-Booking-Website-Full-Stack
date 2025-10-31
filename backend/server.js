@@ -27,9 +27,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import routes
 const bookingRoutes = require('./routes/bookings');
+const emailRoutes = require('./routes/emails');
 
 // Routes
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/emails', emailRoutes);
 
 // Health check route
 app.get('/api/health', (req, res) => {

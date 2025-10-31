@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarang Travel - Admin Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #60a5fa;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 1.1em;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: linear-gradient(45deg, #3b82f6, #6366f1);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        button.danger {
+            background: linear-gradient(45deg, #ef4444, #dc2626);
+        }
+
+        button.danger:hover {
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
+        }
+
+        button.success {
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+
+        .bookings-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .booking-card {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3b82f6;
+            backdrop-filter: blur(10px);
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateX(5px);
+            border-left-color: #60a5fa;
+        }
+
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .booking-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .booking-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .meta-label {
+            color: #94a3b8;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .meta-value {
+            color: white;
+            font-size: 1.1em;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #f59e0b;
+            color: black;
+        }
+
+        .status-confirmed {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-cancelled {
+            background: #ef4444;
+            color: white;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #94a3b8;
+            font-size: 1.2em;
+        }
+
+        .connection-status {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .connected {
+            background: rgba(6, 95, 70, 0.3);
+            color: #34d399;
+            border: 1px solid #065f46;
+        }
+
+        .disconnected {
+            background: rgba(127, 29, 29, 0.3);
+            color: #fca5a5;
+            border: 1px solid #7f1d1d;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .timestamp {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .booking-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏝️ Tarang Travel - Admin Dashboard</h1>
+            <p>Manage bookings and view analytics in real-time</p>
+        </div>
+
+        <div id="connectionStatus" class="connection-status">
+            🔄 Checking connection...
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalBookings">0</div>
+                <div class="stat-label">Total Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingBookings">0</div>
+                <div class="stat-label">Pending Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="confirmedBookings">0</div>
+                <div class="stat-label">Confirmed Bookings</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="revenue">$0</div>
+                <div class="stat-label">Total Revenue</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button onclick="loadBookings()">
+                🔄 Refresh Data
+            </button>
+            <button onclick="exportData()" class="success">
+                📊 Export to JSON
+            </button>
+            <button onclick="loadBookings()" class="success">
+                ⏰ Auto-Refresh: ON
+            </button>
+            <button class="danger" onclick="clearAllData()">
+                🗑️ Clear All Data
+            </button>
+        </div>
+
+        <div id="bookingsList" class="bookings-grid">
+            <div class="no-data">Loading bookings...</div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:5000/api';
+
+        // Check backend and database connection
+        async function checkConnection() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const result = await response.json();
+                const statusDiv = document.getElementById('connectionStatus');
+                statusDiv.className = 'connection-status connected';
+                statusDiv.innerHTML = `
+                    ✅ Connected to Backend & Database | 
+                    ${result.database} | 
+                    Last updated: ${new Date().toLocaleString()}
+                `;
+                return true;
+            } catch (error) {
+                const statusDiv = document.getElementById('connectionStatus');
+                statusDiv.className = 'connection-status disconnected';
+                statusDiv.innerHTML = `❌ Backend Disconnected - Make sure server is running on port 5000`;
+                return false;
+            }
+        }
+
+        // Load all bookings from backend
+        async function loadBookings() {
+            await checkConnection();
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayBookings(result.data);
+                    updateStats(result.data);
+                } else {
+                    throw new Error('Failed to fetch bookings');
+                }
+            } catch (error) {
+                document.getElementById('bookingsList').innerHTML = 
+                    '<div class="no-data">❌ Could not load bookings. Make sure backend server is running.</div>';
+                console.error('Error loading bookings:', error);
+            }
+        }
+
+        // Display bookings in the grid
+        function displayBookings(bookings) {
+            const bookingsList = document.getElementById('bookingsList');
+            
+            if (bookings.length === 0) {
+                bookingsList.innerHTML = '<div class="no-data">No bookings found in database. Make a booking on the main website to see data here.</div>';
+                return;
+            }
+
+            bookingsList.innerHTML = bookings.map(booking => `
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <div class="booking-title">${booking.packageName} - ${booking.packageType}</div>
+                        <span class="status-badge status-${booking.status?.toLowerCase() || 'pending'}">
+                            ${booking.status || 'Pending'}
+                        </span>
+                    </div>
+                    
+                    <div class="booking-meta">
+                        <div class="meta-item">
+                            <span class="meta-label">Customer</span>
+                            <span class="meta-value">${booking.bookerDetails.name}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Email</span>
+                            <span class="meta-value">${booking.bookerDetails.email}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Phone</span>
+                            <span class="meta-value">${booking.bookerDetails.phone}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Travelers</span>
+                            <span class="meta-value">${booking.travelDetails.numberOfTravelers} people</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Travel Date</span>
+                            <span class="meta-value">${new Date(booking.travelDetails.travelDate).toLocaleDateString()}</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-label">Amount</span>
+                            <span class="meta-value">$${booking.totalAmount || booking.price * booking.travelDetails.numberOfTravelers}</span>
+                        </div>
+                    </div>
+
+                    <div class="meta-item">
+                        <span class="meta-label">Booking ID</span>
+                        <span class="meta-value" style="font-family: monospace; font-size: 0.9em;">${booking._id}</span>
+                    </div>
+
+                    <div class="booking-actions">
+                        <button class="action-btn success" onclick="updateBookingStatus('${booking._id}', 'Confirmed')">
+                            Confirm
+                        </button>
+                        <button class="action-btn" onclick="updateBookingStatus('${booking._id}', 'Pending')">
+                            Set Pending
+                        </button>
+                        <button class="action-btn danger" onclick="updateBookingStatus('${booking._id}', 'Cancelled')">
+                            Cancel
+                        </button>
+                        <button class="action-btn danger" onclick="deleteBooking('${booking._id}')">
+                            Delete
+                        </button>
+                    </div>
+
+                    <div class="timestamp">
+                        Created: ${new Date(booking.createdAt).toLocaleString()}
+                        ${booking.updatedAt !== booking.createdAt ? 
+                          ` | Updated: ${new Date(booking.updatedAt).toLocaleString()}` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update statistics
+        function updateStats(bookings) {
+            document.getElementById('totalBookings').textContent = bookings.length;
+            
+            const pending = bookings.filter(b => b.status === 'Pending').length;
+            document.getElementById('pendingBookings').textContent = pending;
+            
+            const confirmed = bookings.filter(b => b.status === 'Confirmed').length;
+            document.getElementById('confirmedBookings').textContent = confirmed;
+            
+            const revenue = bookings.reduce((sum, booking) => sum + (booking.totalAmount || 0), 0);
+            document.getElementById('revenue').textContent = `$${revenue}`;
+        }
+
+        // Export data to JSON file
+        function exportData() {
+            fetch(`${API_BASE_URL}/bookings`)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.success) {
+                        const dataStr = JSON.stringify(result.data, null, 2);
+                        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                        const url = URL.createObjectURL(dataBlob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = `tarang-bookings-${new Date().toISOString().split('T')[0]}.json`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(url);
+                        
+                        alert(`Exported ${result.data.length} bookings to JSON file!`);
+                    }
+                })
+                .catch(error => {
+                    alert('Error exporting data: ' + error.message);
+                });
+        }
+
+        // Update booking status
+        async function updateBookingStatus(bookingId, newStatus) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings/${bookingId}/status`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(`Booking status updated to: ${newStatus}`);
+                    loadBookings(); // Refresh the list
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                alert('Error updating booking: ' + error.message);
+            }
+        }
+
+        // Delete a booking
+        async function deleteBooking(bookingId) {
+            if (!confirm('Are you sure you want to delete this booking? This action cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings/${bookingId}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Booking deleted successfully!');
+                    loadBookings(); // Refresh the list
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                alert('Error deleting booking: ' + error.message);
+            }
+        }
+
+        // Clear all data (you'll need to add this route to your backend)
+        async function clearAllData() {
+            if (!confirm('DANGER ZONE! This will delete ALL bookings from the database. This action cannot be undone. Are you absolutely sure?')) {
+                return;
+            }
+            
+            try {
+                // This endpoint needs to be created in your backend
+                const response = await fetch(`${API_BASE_URL}/bookings/clear-all`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('All data cleared successfully!');
+                    loadBookings();
+                } else {
+                    throw new Error(result.message);
+                }
+            } catch (error) {
+                alert(' Error clearing data: ' + error.message);
+            }
+        }
+
+        // Auto-refresh every 10 seconds
+        setInterval(loadBookings, 10000);
+        
+        // Load data when page opens
+        document.addEventListener('DOMContentLoaded', loadBookings);
+    </script>
+</body>
+</html>

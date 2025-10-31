@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link active">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Revenue Analytics</h1>
+                    <p class="header-subtitle">Track financial performance and insights</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Revenue Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-number" id="totalRevenue">$0</div>
+                <div class="stat-label">Total Revenue</div>
+                <div class="stat-trend">↗ +18.2%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-number" id="monthlyRevenue">$0</div>
+                <div class="stat-label">This Month</div>
+                <div class="stat-trend">↗ +12.5%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📈</div>
+                <div class="stat-number" id="avgBookingValue">$0</div>
+                <div class="stat-label">Avg Booking Value</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-number">$50K</div>
+                <div class="stat-label">Monthly Target</div>
+            </div>
+        </div>
+
+        <!-- Revenue Charts -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card large">
+                <div class="card-header">
+                    <h3>Revenue Overview</h3>
+                    <select class="filter-select">
+                        <option>Last 12 months</option>
+                        <option>Last 6 months</option>
+                        <option>Last 3 months</option>
+                    </select>
+                </div>
+                <div class="revenue-chart">
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Jan</div>
+                        <div class="chart-bar" style="height: 45%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Feb</div>
+                        <div class="chart-bar" style="height: 60%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Mar</div>
+                        <div class="chart-bar" style="height: 55%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Apr</div>
+                        <div class="chart-bar" style="height: 75%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">May</div>
+                        <div class="chart-bar" style="height: 70%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Jun</div>
+                        <div class="chart-bar" style="height: 85%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Jul</div>
+                        <div class="chart-bar" style="height: 90%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Aug</div>
+                        <div class="chart-bar" style="height: 80%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Sep</div>
+                        <div class="chart-bar" style="height: 95%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Oct</div>
+                        <div class="chart-bar" style="height: 88%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Nov</div>
+                        <div class="chart-bar" style="height: 92%"></div>
+                    </div>
+                    <div class="chart-bar-group">
+                        <div class="chart-label">Dec</div>
+                        <div class="chart-bar" style="height: 100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3>Revenue by Package Type</h3>
+                </div>
+                <div class="revenue-breakdown">
+                    <div class="revenue-item">
+                        <div class="revenue-item-header">
+                            <span class="revenue-item-name">Adventure Packages</span>
+                            <span class="revenue-item-value">$45,280</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%; background: linear-gradient(90deg, #667eea, #764ba2);"></div>
+                        </div>
+                        <span class="revenue-percentage">42%</span>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-item-header">
+                            <span class="revenue-item-name">Luxury Tours</span>
+                            <span class="revenue-item-value">$38,920</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 73%; background: linear-gradient(90deg, #f093fb, #f5576c);"></div>
+                        </div>
+                        <span class="revenue-percentage">36%</span>
+                    </div>
+                    <div class="revenue-item">
+                        <div class="revenue-item-header">
+                            <span class="revenue-item-name">Family Packages</span>
+                            <span class="revenue-item-value">$23,450</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 44%; background: linear-gradient(90deg, #4facfe, #00f2fe);"></div>
+                        </div>
+                        <span class="revenue-percentage">22%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Earning Packages -->
+        <div class="section-header">
+            <h2 class="section-title">Top Earning Packages</h2>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Package Name</th>
+                        <th>Bookings</th>
+                        <th>Revenue</th>
+                        <th>Growth</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="rank-badge gold">🥇</span></td>
+                        <td><strong>Bali Adventure Package</strong></td>
+                        <td>45</td>
+                        <td><strong>$58,455</strong></td>
+                        <td><span class="trend-up">↗ +15%</span></td>
+                        <td><span class="status-badge status-confirmed">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge silver">🥈</span></td>
+                        <td><strong>Paris Romantic Getaway</strong></td>
+                        <td>38</td>
+                        <td><strong>$72,162</strong></td>
+                        <td><span class="trend-up">↗ +22%</span></td>
+                        <td><span class="status-badge status-confirmed">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge bronze">🥉</span></td>
+                        <td><strong>Tokyo Cultural Experience</strong></td>
+                        <td>32</td>
+                        <td><strong>$51,168</strong></td>
+                        <td><span class="trend-up">↗ +8%</span></td>
+                        <td><span class="status-badge status-confirmed">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">4</span></td>
+                        <td><strong>Dubai Luxury Tour</strong></td>
+                        <td>28</td>
+                        <td><strong>$69,972</strong></td>
+                        <td><span class="trend-up">↗ +18%</span></td>
+                        <td><span class="status-badge status-confirmed">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="rank-badge">5</span></td>
+                        <td><strong>Maldives Beach Resort</strong></td>
+                        <td>25</td>
+                        <td><strong>$82,475</strong></td>
+                        <td><span class="trend-up">↗ +25%</span></td>
+                        <td><span class="status-badge status-confirmed">Active</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        // Load revenue data
+        async function loadRevenueData() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const bookings = result.data;
+                    const totalRevenue = bookings.reduce((sum, b) => sum + (b.totalAmount || 0), 0);
+                    const avgBookingValue = bookings.length > 0 ? totalRevenue / bookings.length : 0;
+                    
+                    document.getElementById('totalRevenue').textContent = `$${totalRevenue.toLocaleString()}`;
+                    document.getElementById('monthlyRevenue').textContent = `$${Math.floor(totalRevenue * 0.3).toLocaleString()}`;
+                    document.getElementById('avgBookingValue').textContent = `$${Math.floor(avgBookingValue).toLocaleString()}`;
+                }
+            } catch (error) {
+                console.error('Error loading revenue data:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadRevenueData);
+    </script>
+</body>
+</html>

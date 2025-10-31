@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link active">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Settings</h1>
+                    <p class="header-subtitle">Manage system configuration and preferences</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Sections -->
+        <div class="settings-grid">
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>🔗 API Configuration</h3>
+                    <p>Configure backend API settings</p>
+                </div>
+                <div class="settings-content">
+                    <div class="form-group">
+                        <label>API Base URL</label>
+                        <input type="text" class="form-input" value="http://localhost:5000/api" id="apiUrl">
+                    </div>
+                    <div class="form-group">
+                        <label>Connection Status</label>
+                        <div id="apiStatus" class="connection-status">
+                            🔄 Checking...
+                        </div>
+                    </div>
+                    <button class="primary" onclick="testConnection()">Test Connection</button>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>👤 Profile Settings</h3>
+                    <p>Update your admin profile</p>
+                </div>
+                <div class="settings-content">
+                    <div class="form-group">
+                        <label>Admin Name</label>
+                        <input type="text" class="form-input" value="Admin" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-input" value="admin@tarangtravel.com" placeholder="Enter email">
+                    </div>
+                    <button class="success">Save Changes</button>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>🔔 Notifications</h3>
+                    <p>Manage notification preferences</p>
+                </div>
+                <div class="settings-content">
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <div>
+                                <div class="toggle-label">Email Notifications</div>
+                                <div class="toggle-description">Receive booking updates via email</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div>
+                                <div class="toggle-label">New Booking Alerts</div>
+                                <div class="toggle-description">Get notified for new bookings</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="toggle-item">
+                            <div>
+                                <div class="toggle-label">Payment Notifications</div>
+                                <div class="toggle-description">Alerts for payment updates</div>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>🎨 Appearance</h3>
+                    <p>Customize dashboard appearance</p>
+                </div>
+                <div class="settings-content">
+                    <div class="form-group">
+                        <label>Theme</label>
+                        <select class="form-input">
+                            <option>Dark Mode (Current)</option>
+                            <option>Light Mode</option>
+                            <option>Auto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Accent Color</label>
+                        <div class="color-picker">
+                            <div class="color-option" style="background: #6366f1;" title="Indigo"></div>
+                            <div class="color-option" style="background: #ec4899;" title="Pink"></div>
+                            <div class="color-option" style="background: #10b981;" title="Green"></div>
+                            <div class="color-option" style="background: #f59e0b;" title="Amber"></div>
+                            <div class="color-option" style="background: #3b82f6;" title="Blue"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>🗄️ Data Management</h3>
+                    <p>Manage system data</p>
+                </div>
+                <div class="settings-content">
+                    <div class="data-actions">
+                        <button class="success" onclick="exportData()">
+                            <span>📊</span>
+                            <span>Export All Data</span>
+                        </button>
+                        <button onclick="backupData()">
+                            <span>💾</span>
+                            <span>Backup Database</span>
+                        </button>
+                        <button class="danger" onclick="clearAllData()">
+                            <span>🗑️</span>
+                            <span>Clear All Data</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>ℹ️ System Information</h3>
+                    <p>View system details</p>
+                </div>
+                <div class="settings-content">
+                    <div class="info-list">
+                        <div class="info-item">
+                            <span class="info-label">Version</span>
+                            <span class="info-value">1.0.0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Database</span>
+                            <span class="info-value">MongoDB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Backend</span>
+                            <span class="info-value">Node.js + Express</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Last Updated</span>
+                            <span class="info-value">Oct 31, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        async function testConnection() {
+            const statusDiv = document.getElementById('apiStatus');
+            statusDiv.className = 'connection-status';
+            statusDiv.innerHTML = '🔄 Testing connection...';
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/health`);
+                const result = await response.json();
+                statusDiv.className = 'connection-status connected';
+                statusDiv.innerHTML = `✅ Connected successfully! Database: ${result.database}`;
+            } catch (error) {
+                statusDiv.className = 'connection-status disconnected';
+                statusDiv.innerHTML = '❌ Connection failed. Check if backend is running.';
+            }
+        }
+
+        function backupData() {
+            alert('Backup functionality would be implemented here');
+        }
+
+        // Test connection on load
+        document.addEventListener('DOMContentLoaded', testConnection);
+    </script>
+</body>
+</html>

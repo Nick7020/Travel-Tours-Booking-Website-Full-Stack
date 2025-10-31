@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
+const { sendBookingConfirmation } = require('../utils/mailer');
 
 // Create new booking
 router.post('/', async (req, res) => {
@@ -105,6 +106,22 @@ router.patch('/:id/status', async (req, res) => {
       });
     }
     
+    // Fire-and-forget email when booking is confirmed
+    if (status === 'Confirmed' && booking?.bookerDetails?.email) {
+      (async () => {
+        try {
+          await sendBookingConfirmation({
+            to: booking.bookerDetails.email,
+            name: booking.bookerDetails.name,
+            booking,
+          });
+          console.log(`📧 Confirmation email queued for ${booking.bookerDetails.email}`);
+        } catch (e) {
+          console.error('❌ Failed to send confirmation email:', e.message);
+        }
+      })();
+    }
+
     res.json({
       success: true,
       message: 'Booking status updated',
@@ -119,7 +136,35 @@ router.patch('/:id/status', async (req, res) => {
   }
 });
 
-// Delete booking
+// Delete individual booking
+router.delete('/:id', async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndDelete(req.params.id);
+    
+    if (!booking) {
+      return res.status(404).json({
+        success: false,
+        message: 'Booking not found'
+      });
+    }
+    
+    console.log(`🗑️ Deleted booking: ${req.params.id}`);
+    
+    res.json({
+      success: true,
+      message: 'Booking deleted successfully',
+      data: booking
+    });
+  } catch (error) {
+    console.error('❌ Error deleting booking:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Error deleting booking',
+      error: error.message
+    });
+  }
+});
+
 // Clear all bookings (for admin use)
 router.delete('/clear-all', async (req, res) => {
   try {

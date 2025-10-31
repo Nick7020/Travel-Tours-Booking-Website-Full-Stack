@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link active">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Package Management</h1>
+                    <p class="header-subtitle">Manage travel packages and offerings</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Package Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">📦</div>
+                <div class="stat-number">24</div>
+                <div class="stat-label">Total Packages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔥</div>
+                <div class="stat-number">8</div>
+                <div class="stat-label">Popular Packages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🆕</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">New This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number">4.8</div>
+                <div class="stat-label">Avg Rating</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search packages...">
+            </div>
+            <div class="toolbar-actions">
+                <select class="filter-select">
+                    <option value="all">All Categories</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="luxury">Luxury</option>
+                    <option value="family">Family</option>
+                </select>
+                <button class="primary">
+                    <span>➕</span>
+                    <span>Add Package</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Packages Grid -->
+        <div class="packages-grid">
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <span class="package-badge">Popular</span>
+                </div>
+                <div class="package-content">
+                    <h3>Bali Adventure Package</h3>
+                    <p class="package-description">7 days of adventure in the paradise island</p>
+                    <div class="package-meta">
+                        <span class="package-price">$1,299</span>
+                        <span class="package-bookings">45 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <span class="package-badge new">New</span>
+                </div>
+                <div class="package-content">
+                    <h3>Paris Romantic Getaway</h3>
+                    <p class="package-description">5 days exploring the city of love</p>
+                    <div class="package-meta">
+                        <span class="package-price">$1,899</span>
+                        <span class="package-bookings">38 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                </div>
+                <div class="package-content">
+                    <h3>Tokyo Cultural Experience</h3>
+                    <p class="package-description">6 days immersed in Japanese culture</p>
+                    <div class="package-meta">
+                        <span class="package-price">$1,599</span>
+                        <span class="package-bookings">32 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                </div>
+                <div class="package-content">
+                    <h3>Dubai Luxury Tour</h3>
+                    <p class="package-description">5 days of luxury in the desert city</p>
+                    <div class="package-meta">
+                        <span class="package-price">$2,499</span>
+                        <span class="package-bookings">28 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);">
+                </div>
+                <div class="package-content">
+                    <h3>Maldives Beach Resort</h3>
+                    <p class="package-description">8 days in tropical paradise</p>
+                    <div class="package-meta">
+                        <span class="package-price">$3,299</span>
+                        <span class="package-bookings">25 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="package-card">
+                <div class="package-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                </div>
+                <div class="package-content">
+                    <h3>Swiss Alps Adventure</h3>
+                    <p class="package-description">7 days in the mountains</p>
+                    <div class="package-meta">
+                        <span class="package-price">$2,199</span>
+                        <span class="package-bookings">22 bookings</span>
+                    </div>
+                    <div class="package-actions">
+                        <button class="action-btn">✏️ Edit</button>
+                        <button class="action-btn">👁️ View</button>
+                        <button class="action-btn danger">🗑️ Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

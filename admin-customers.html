@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - Tarang Travel Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-styles.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <span>🏝️</span>
+                <span>Tarang Travel</span>
+            </div>
+        </div>
+        
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="admin-dashboard.html" class="nav-link">
+                        <span>📊</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-bookings.html" class="nav-link">
+                        <span>📅</span>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-customers.html" class="nav-link active">
+                        <span>👥</span>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-packages.html" class="nav-link">
+                        <span>📦</span>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-revenue.html" class="nav-link">
+                        <span>💰</span>
+                        <span>Revenue</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="admin-settings.html" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <div class="header-top">
+                <div>
+                    <h1>Customer Management</h1>
+                    <p class="header-subtitle">View and manage customer information</p>
+                </div>
+                <div class="user-profile">
+                    <div class="user-avatar">A</div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.95rem;">Admin</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary);">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="totalCustomers">0</div>
+                <div class="stat-label">Total Customers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🆕</div>
+                <div class="stat-number" id="newCustomers">0</div>
+                <div class="stat-label">New This Month</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">⭐</div>
+                <div class="stat-number" id="vipCustomers">0</div>
+                <div class="stat-label">VIP Customers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🔄</div>
+                <div class="stat-number" id="returningCustomers">0</div>
+                <div class="stat-label">Returning</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="search-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input type="text" placeholder="Search customers..." id="searchCustomers">
+            </div>
+            <div class="toolbar-actions">
+                <select class="filter-select">
+                    <option value="all">All Customers</option>
+                    <option value="vip">VIP Only</option>
+                    <option value="new">New Customers</option>
+                </select>
+                <button class="success">
+                    <span>📊</span>
+                    <span>Export List</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Customers Table -->
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Total Bookings</th>
+                        <th>Total Spent</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="customersTableBody">
+                    <tr>
+                        <td colspan="7" class="no-data-row">
+                            <div class="no-data-icon">👥</div>
+                            <div>Loading customer data...</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="admin-script.js"></script>
+    <script>
+        // Load customers from bookings data
+        async function loadCustomers() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/bookings`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const bookings = result.data;
+                    
+                    // Extract unique customers
+                    const customersMap = new Map();
+                    bookings.forEach(booking => {
+                        const email = booking.bookerDetails.email;
+                        if (!customersMap.has(email)) {
+                            customersMap.set(email, {
+                                name: booking.bookerDetails.name,
+                                email: email,
+                                phone: booking.bookerDetails.phone,
+                                bookings: 0,
+                                totalSpent: 0
+                            });
+                        }
+                        const customer = customersMap.get(email);
+                        customer.bookings++;
+                        customer.totalSpent += booking.totalAmount || 0;
+                    });
+                    
+                    displayCustomers(Array.from(customersMap.values()));
+                    updateCustomerStats(Array.from(customersMap.values()));
+                }
+            } catch (error) {
+                console.error('Error loading customers:', error);
+            }
+        }
+
+        function displayCustomers(customers) {
+            const tbody = document.getElementById('customersTableBody');
+            
+            if (customers.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="no-data-row">
+                            <div class="no-data-icon">👥</div>
+                            <div>No customers found</div>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = customers.map(customer => `
+                <tr>
+                    <td>
+                        <div class="customer-cell">
+                            <div class="customer-avatar">${customer.name.charAt(0)}</div>
+                            <span>${customer.name}</span>
+                        </div>
+                    </td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td><span class="badge">${customer.bookings}</span></td>
+                    <td><strong>$${customer.totalSpent}</strong></td>
+                    <td><span class="status-badge ${customer.bookings > 2 ? 'status-confirmed' : 'status-pending'}">${customer.bookings > 2 ? 'VIP' : 'Regular'}</span></td>
+                    <td>
+                        <button class="action-btn-small" title="View Details">👁️</button>
+                        <button class="action-btn-small" title="Send Email">📧</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateCustomerStats(customers) {
+            document.getElementById('totalCustomers').textContent = customers.length;
+            document.getElementById('newCustomers').textContent = Math.floor(customers.length * 0.3);
+            document.getElementById('vipCustomers').textContent = customers.filter(c => c.bookings > 2).length;
+            document.getElementById('returningCustomers').textContent = customers.filter(c => c.bookings > 1).length;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadCustomers);
+    </script>
+</body>
+</html>
