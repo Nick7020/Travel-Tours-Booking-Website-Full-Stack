@@ -6,32 +6,90 @@ const Booking = require('../models/Booking');
 // Email templates
 const emailTemplates = {
     welcome: {
-        subject: 'Welcome to Tarang Travel & Tours! 🏝️',
+        subject: '🌟 Welcome to Tarang Travel & Tours! Your Adventure Begins! 🌎',
         html: (name) => `
-            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 20px; border-radius: 10px;">
-                <div style="background: white; padding: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <h1 style="color: #667eea; margin-bottom: 20px;">🏝️ Welcome to Tarang Travel!</h1>
-                    <p style="font-size: 16px; color: #333; line-height: 1.6;">Dear ${name},</p>
-                    <p style="font-size: 16px; color: #333; line-height: 1.6;">
-                        Thank you for choosing Tarang Travel & Tours for your next adventure! We're thrilled to have you as part of our travel family.
-                    </p>
-                    <h2 style="color: #667eea; margin-top: 30px; font-size: 20px;">🎯 What's Next?</h2>
-                    <ul style="font-size: 16px; color: #333; line-height: 1.8;">
-                        <li>✅ Browse our exclusive travel packages</li>
-                        <li>✈️ Get personalized recommendations</li>
-                        <li>💰 Enjoy special member discounts</li>
-                        <li>🌟 Access 24/7 customer support</li>
-                    </ul>
-                    <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <h3 style="color: #667eea; margin-bottom: 10px;">📞 Need Help?</h3>
-                        <p style="color: #555; margin: 5px 0;">Email: support@tarangtravel.com</p>
-                        <p style="color: #555; margin: 5px 0;">Phone: +1-800-TRAVEL</p>
-                        <p style="color: #555; margin: 5px 0;">Website: www.tarangtravel.com</p>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); padding: 40px 20px; border-radius: 15px;">
+                <div style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <!-- Header with Icon -->
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="background: #e0e7ff; width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <span style="font-size: 40px;">✈️</span>
+                        </div>
+                        <h1 style="color: #3b82f6; margin: 0 0 10px 0; font-size: 28px;">Welcome to Tarang Travel!</h1>
+                        <div style="height: 4px; width: 60px; background: #3b82f6; margin: 15px auto; border-radius: 2px;"></div>
                     </div>
-                    <p style="font-size: 16px; color: #333; margin-top: 30px;">
-                        Best regards,<br>
-                        <strong>The Tarang Travel Team</strong>
+                    
+                    <!-- Greeting -->
+                    <p style="font-size: 16px; color: #4b5563; line-height: 1.7; margin-bottom: 25px;">
+                        Dear <span style="color: #3b82f6; font-weight: 600;">${name}</span>,<br>
+                        🎉 Welcome to the Tarang Travel family! We're absolutely thrilled to have you on board for what promises to be an unforgettable journey. 🌈
                     </p>
+                    
+                    <!-- Main Content -->
+                    <div style="background: #f8fafc; border-left: 4px solid #3b82f6; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                        <h2 style="color: #3b82f6; margin-top: 0; font-size: 20px; display: flex; align-items: center;">
+                            <span style="margin-right: 10px;">🚀</span> Your Adventure Starts Here!
+                        </h2>
+                        <ul style="font-size: 15px; color: #4b5563; line-height: 1.8; padding-left: 25px; margin: 15px 0 0 0;">
+                            <li style="margin-bottom: 12px;">
+                                <span style="color: #10b981; font-weight: bold;">✓</span> <strong>Exclusive Deals:</strong> Get access to members-only discounts and early bird specials! 🎁
+                            </li>
+                            <li style="margin-bottom: 12px;">
+                                <span style="color: #10b981; font-weight: bold;">✓</span> <strong>Personalized Recommendations:</strong> Tailored travel suggestions just for you! ✨
+                            </li>
+                            <li style="margin-bottom: 12px;">
+                                <span style="color: #10b981; font-weight: bold;">✓</span> <strong>24/7 Support:</strong> Our travel experts are always here for you! 💫
+                            </li>
+                            <li style="margin-bottom: 0;">
+                                <span style="color: #10b981; font-weight: bold;">✓</span> <strong>Travel Tips:</strong> Get insider knowledge before you go! 🧳
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- CTA Button -->
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="https://www.tarangtravel.com/explore" style="display: inline-block; background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); color: white; padding: 14px 32px; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);">
+                            🚀 Start Exploring Now →
+                        </a>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin: 30px 0; border: 1px solid #e2e8f0;">
+                        <h3 style="color: #3b82f6; margin-top: 0; font-size: 18px; display: flex; align-items: center;">
+                            <span style="margin-right: 10px;">📞</span> Need Help? We're Here For You!
+                        </h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 15px;">
+                            <div style="flex: 1; min-width: 120px;">
+                                <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">📧 Email</div>
+                                <div style="color: #1e293b; font-weight: 500;">support@tarangtravel.com</div>
+                            </div>
+                            <div style="flex: 1; min-width: 120px;">
+                                <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">📱 WhatsApp</div>
+                                <div style="color: #1e293b; font-weight: 500;">+1 (555) 123-4567</div>
+                            </div>
+                            <div style="flex: 1; min-width: 120px;">
+                                <div style="color: #64748b; font-size: 14px; margin-bottom: 5px;">🌐 Live Chat</div>
+                                <div style="color: #1e293b; font-weight: 500;">Available 24/7</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media -->
+                    <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
+                        <p style="margin: 0 0 15px 0; color: #64748b; font-size: 14px;">Follow us on social media for travel inspiration!</p>
+                        <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                            <a href="#" style="color: #3b82f6; text-decoration: none; font-size: 20px;">📱</a>
+                            <a href="#" style="color: #3b82f6; text-decoration: none; font-size: 20px;">📸</a>
+                            <a href="#" style="color: #3b82f6; text-decoration: none; font-size: 20px;">🐦</a>
+                            <a href="#" style="color: #3b82f6; text-decoration: none; font-size: 20px;">📘</a>
+                        </div>
+                        <p style="margin: 0; font-size: 13px; color: #94a3b8;">
+                            Tarang Travel & Tours • 123 Adventure Lane • Paradise City, PC 12345
+                        </p>
+                        <p style="margin: 5px 0 0 0; font-size: 12px; color: #cbd5e1;">
+                            © ${new Date().getFullYear()} Tarang Travel. All rights reserved.
+                        </p>
+                    </div>
                 </div>
             </div>
         `
