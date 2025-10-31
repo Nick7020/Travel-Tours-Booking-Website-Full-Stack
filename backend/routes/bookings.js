@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
-const { sendBookingConfirmation } = require('../utils/mailer');
+const { sendBookingConfirmation, sendTripConfirmation } = require('../utils/mailer');
 
 // Create new booking
 router.post('/', async (req, res) => {
@@ -106,32 +106,54 @@ router.patch('/:id/status', async (req, res) => {
       });
     }
     
-    // Fire-and-forget email when booking is confirmed
+    // Send confirmation email when booking is confirmed by admin
     if (status === 'Confirmed' && booking?.bookerDetails?.email) {
-      (async () => {
-        try {
-          await sendBookingConfirmation({
-            to: booking.bookerDetails.email,
-            name: booking.bookerDetails.name,
-            booking,
-          });
-          console.log(`📧 Confirmation email queued for ${booking.bookerDetails.email}`);
-        } catch (e) {
-          console.error('❌ Failed to send confirmation email:', e.message);
-        }
-      })();
+      try {
+        console.log(`📧 Sending trip confirmation email to: ${booking.bookerDetails.email}`);
+        
+        await sendTripConfirmation({
+          to: booking.bookerDetails.email,
+          name: booking.bookerDetails.name,
+          booking: {
+            ...booking.toObject(),
+            travelDetails: booking.travelDetails || {}
+          }
+        });
+        
+        console.log(`✅ Trip confirmation email sent successfully to ${booking.bookerDetails.email}`);
+        
+        // Update booking with email sent status
+        booking.emailSent = true;
+        booking.emailSentAt = new Date();
+        booking.emailError = undefined;
+        await booking.save();
+        
+      } catch (emailError) {
+        console.error('❌ Error sending trip confirmation email:', emailError);
+        
+        // Update booking with email error
+        booking.emailError = emailError.message;
+        await booking.save();
+        
+        // Don't fail the entire request if email fails
+        console.log('⚠️  Continuing with status update despite email error');
+      }
     }
 
     res.json({
       success: true,
       message: 'Booking status updated',
-      data: booking
+      data: booking,
+      emailSent: booking.emailSent || false,
+      emailError: booking.emailError || null
     });
   } catch (error) {
+    console.error('❌ Error updating booking status:', error);
     res.status(500).json({
       success: false,
       message: 'Error updating booking',
-      error: error.message
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });
