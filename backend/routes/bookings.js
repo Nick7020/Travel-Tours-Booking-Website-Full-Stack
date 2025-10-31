@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
         email: req.body.bookerDetails.email,
         phone: req.body.bookerDetails.phone
       },
-      travelDetails: {
+      travelDetails: {  
         numberOfTravelers: req.body.travelDetails.numberOfTravelers,
         travelDate: req.body.travelDetails.travelDate
       },
