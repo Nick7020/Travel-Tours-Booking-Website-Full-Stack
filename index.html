@@ -342,7 +342,7 @@
             <div class="contact-icon email-icon">
               <i class="fas fa-envelope"></i>
             </div>
-            <span class="contact-text">abc123@gmial.com</span>
+            <span class="contact-text">TravelWithTarang@</span>
           </div>
           
           <div class="contact-item">
@@ -489,6 +489,32 @@
   </div>
 </div>
 
+<!-- Chatbot Container -->
+<div class="chatbot-container" id="chatbotContainer">
+  <div class="chatbot-header">
+    <h3>Tarang Travel Assistant</h3>
+    <button class="chatbot-close" id="chatbotClose">&times;</button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+    <div class="message bot-message">
+      Hello! I'm your Tarang Travel Assistant. How can I help you today?
+      <div class="message-options">
+        <button class="message-option" data-query="packages">View Packages</button>
+        <button class="message-option" data-query="booking">Booking Process</button>
+        <button class="message-option" data-query="contact">Contact Info</button>
+      </div>
+    </div>
+  </div>
+  <div class="chatbot-input-container">
+    <input type="text" id="chatbotInput" placeholder="Type your question..." />
+    <button class="chatbot-send" id="chatbotSend">Send</button>
+  </div>
+</div>
+
+<!-- Chatbot Toggle Button -->
+<button class="chatbot-toggle" id="chatbotToggle">
+  <i class="fas fa-comments"></i>
+</button>
 
   <script src="script.js"></script>
 </body>

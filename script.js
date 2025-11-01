@@ -551,8 +551,6 @@ function smoothScrollToSection(sectionId) {
   });
 }
 
-// ...existing code...
-
 const heroBookingBtn = document.getElementById('bookYourJourneyBtn');
 const heroModal = document.getElementById('heroBookingModal');
 const heroModalClose = document.getElementById('heroModalClose');
@@ -642,3 +640,134 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+/* ----------------- Chatbot Functionality ----------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  const chatbotContainer = document.getElementById('chatbotContainer');
+  const chatbotClose = document.getElementById('chatbotClose');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotSend = document.getElementById('chatbotSend');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+  
+  // Add pulse animation to chatbot toggle button
+  setTimeout(() => {
+    if (chatbotToggle) {
+      chatbotToggle.classList.add('pulse');
+    }
+  }, 3000);
+  
+  // Toggle chatbot visibility
+  if (chatbotToggle) {
+    chatbotToggle.addEventListener('click', () => {
+      chatbotContainer.classList.toggle('open');
+      chatbotToggle.classList.remove('pulse');
+    });
+  }
+  
+  // Close chatbot
+  if (chatbotClose) {
+    chatbotClose.addEventListener('click', () => {
+      chatbotContainer.classList.remove('open');
+    });
+  }
+  
+  // Send message function
+  function sendMessage() {
+    const message = chatbotInput.value.trim();
+    if (message) {
+      // Add user message to chat
+      addMessage(message, 'user');
+      chatbotInput.value = '';
+      
+      // Get bot response
+      setTimeout(() => {
+        getBotResponse(message);
+      }, 500);
+    }
+  }
+  
+  // Send message on button click
+  if (chatbotSend) {
+    chatbotSend.addEventListener('click', sendMessage);
+  }
+  
+  // Send message on Enter key
+  if (chatbotInput) {
+    chatbotInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  }
+  
+  // Add message to chat
+  function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message');
+    messageDiv.classList.add(sender + '-message');
+    messageDiv.textContent = text;
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+  
+  // Handle quick reply options
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('message-option')) {
+      const query = e.target.getAttribute('data-query');
+      handleQuickReply(query);
+    }
+  });
+  
+  // Handle quick replies
+  function handleQuickReply(query) {
+    let userMessage = '';
+    let botResponse = '';
+    
+    switch(query) {
+      case 'packages':
+        userMessage = 'View Packages';
+        botResponse = 'We offer 9 amazing travel packages: Nature Escape, Romantic Gateways, Family Vacations, Adventure Trips, Village Escape, Beach Bliss, Into the Wild, Culinary Trail, and Weekend Trails. Which one interests you?';
+        break;
+      case 'booking':
+        userMessage = 'Booking Process';
+        botResponse = 'To book a package, you can either click "Book Now" on any package card or use the "Book Your Journey" button on our homepage. You\'ll need to provide your details, select package type, number of travelers, and travel date. Payment can be made via UPI, Cards, or NetBanking.';
+        break;
+      case 'contact':
+        userMessage = 'Contact Info';
+        botResponse = 'You can reach us at:\nPhone: 3333-444-555\nEmail: abc123@gmial.com\nAddress: Busy Street, Mumbai\nOur team is available 24/7 to assist you!';
+        break;
+    }
+    
+    if (userMessage && botResponse) {
+      addMessage(userMessage, 'user');
+      setTimeout(() => {
+        addMessage(botResponse, 'bot');
+      }, 500);
+    }
+  }
+  
+  // Get bot response based on user input
+  function getBotResponse(message) {
+    const lowerMessage = message.toLowerCase();
+    let response = '';
+    
+    if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+      response = 'Hello there! How can I assist you with your travel plans today?';
+    } else if (lowerMessage.includes('package') || lowerMessage.includes('tour') || lowerMessage.includes('travel')) {
+      response = 'We offer 9 amazing travel packages: Nature Escape, Romantic Gateways, Family Vacations, Adventure Trips, Village Escape, Beach Bliss, Into the Wild, Culinary Trail, and Weekend Trails. Which one interests you?';
+    } else if (lowerMessage.includes('book') || lowerMessage.includes('booking') || lowerMessage.includes('reserve')) {
+      response = 'To book a package, you can either click "Book Now" on any package card or use the "Book Your Journey" button on our homepage. You\'ll need to provide your details, select package type, number of travelers, and travel date. Payment can be made via UPI, Cards, or NetBanking.';
+    } else if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('rate')) {
+      response = 'Our packages come in three types:\n- Budget: $500/person\n- Standard: $1000/person\n- Luxury: $2000/person\nThe final cost depends on the number of travelers and package type you choose.';
+    } else if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email')) {
+      response = 'You can reach us at:\nPhone: 3333-444-555\nEmail: abc123@gmial.com\nAddress: Busy Street, Mumbai\nOur team is available 24/7 to assist you!';
+    } else if (lowerMessage.includes('thank')) {
+      response = 'You\'re welcome! Is there anything else I can help you with?';
+    } else {
+      response = 'I can help you with information about our travel packages, booking process, pricing, and contact details. What would you like to know?';
+    }
+    
+    addMessage(response, 'bot');
+  }
+});
