@@ -551,7 +551,8 @@ function smoothScrollToSection(sectionId) {
   });
 }
 
-// Hero Booking Modal
+// ...existing code...
+
 const heroBookingBtn = document.getElementById('bookYourJourneyBtn');
 const heroModal = document.getElementById('heroBookingModal');
 const heroModalClose = document.getElementById('heroModalClose');

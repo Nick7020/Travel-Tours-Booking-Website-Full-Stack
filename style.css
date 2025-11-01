@@ -136,7 +136,7 @@ body {
 
 /* Hero */
 #hero {
-  background-image: url('first.jpeg');
+  background-image: url('assets/images/first.jpeg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -189,7 +189,7 @@ body {
 
 /* Wonderful India - big background with only heading */
 #wonderful {
-  background-image: url('2.png');
+  background-image: url('assets/images/2.png');
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -619,7 +619,7 @@ body {
 /* Offerings grid 2x2 */
 #offerings {
   position: relative;
-  background-image: url('offering.jpg');
+  background-image: url('assets/images/offering.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -689,7 +689,7 @@ body {
   height: 100vh;
 
   /* Background image */
-  background: url('favorite.jpeg') no-repeat center center/cover;
+  background: url('assets/images/favorite.jpeg') no-repeat center center/cover;
   overflow: hidden;
 }
 
@@ -778,7 +778,7 @@ body {
 
 .contact-left {
   flex: 1;
-  background: url('offering.jpg') center/cover;
+  background: url('assets/images/offering.jpg') center/cover;
   position: relative;
 }
 
