@@ -793,11 +793,6 @@
     </main>
 
     <script>
-        // --- Admin authentication check ---
-        if (localStorage.getItem('tarangAdminLoggedIn') !== 'true') {
-          window.location.href = 'admin-login.html';
-        }
-
         const API_BASE_URL = 'http://localhost:5000/api';
         let autoRefreshInterval = null;
         let autoRefreshEnabled = true;
