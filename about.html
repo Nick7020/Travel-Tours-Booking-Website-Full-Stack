@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>About Us - Vaishu</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e0f7fa 100%);
+      min-height: 100vh;
+    }
+    .about-main {
+      max-width: 900px;
+      margin: 100px auto 40px auto;
+      background: #fff;
+      color: #222;
+      border-radius: 24px;
+      box-shadow: 0 8px 32px rgba(99,102,241,0.10);
+      padding: 3rem 2.5rem 2.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-main::before {
+      content: '';
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 180px; height: 180px;
+      background: linear-gradient(135deg, #6366f1 0%, #10b981 100%);
+      opacity: 0.12;
+      border-radius: 50%;
+      z-index: 0;
+    }
+    .about-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #6366f1;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .about-highlight {
+      color: #10b981;
+      font-weight: 700;
+    }
+    .about-text {
+      font-size: 1.18rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .about-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin: 2.5rem 0 1.5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+    .feature-card {
+      background: linear-gradient(135deg, #f0fdf4 0%, #e0e7ff 100%);
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(99,102,241,0.07);
+      padding: 1.5rem 1.2rem;
+      min-width: 220px;
+      max-width: 260px;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      border: 1px solid #e0e7ff;
+    }
+    .feature-icon {
+      font-size: 2.2rem;
+      color: #6366f1;
+      margin-bottom: 0.7rem;
+    }
+    .feature-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #10b981;
+      margin-bottom: 0.3rem;
+    }
+    .feature-desc {
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.5;
+    }
+    .about-footer {
+      text-align: center;
+      font-size: 1rem;
+      color: #6366f1;
+      margin-top: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 700px) {
+      .about-main {
+        padding: 1.5rem 0.5rem;
+      }
+      .about-features {
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="index.html" class="navbar-logo">
+        <img src="assets/images/logo2.png" alt="Vaishu Logo" style="height:40px;vertical-align:middle;">
+        <span style="font-weight:700;font-size:1.2rem;margin-left:8px;vertical-align:middle;">Vaishu</span>
+      </a>
+      <ul class="navbar-links">
+        <li><a href="index.html#wonderful">Home</a></li>
+        <li><a href="index.html#packages">Packages</a></li>
+        <li><a href="index.html#offerings">Offerings</a></li>
+        <li><a href="index.html#travelers">Testimonials</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+      </ul>
+      <button class="navbar-book-btn" onclick="window.location.href='index.html#heroBookingModal'">Book Now</button>
+    </div>
+  </nav>
+  <div class="about-main">
+    <h1 class="about-title">About <span class="about-highlight">Vaishu</span></h1>
+    <p class="about-text">
+      <span class="about-highlight">Vaishu</span> is your trusted partner for unforgettable journeys across India. Founded in 2022, our mission is to make travel seamless, personalized, and memorable for every explorer. From the mystical ghats of Varanasi to the serene backwaters of Kerala, we curate experiences that celebrate India's rich heritage and natural beauty.
+    </p>
+    <div class="about-features">
+      <div class="feature-card">
+        <div class="feature-icon">🌏</div>
+        <div class="feature-title">Pan-India Destinations</div>
+        <div class="feature-desc">Explore the best of India, from the Himalayas to the beaches of Goa, with curated packages for every traveler.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧑‍💼</div>
+        <div class="feature-title">Expert Team</div>
+        <div class="feature-desc">Our passionate travel experts design personalized itineraries and provide 24/7 support for a worry-free experience.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌱</div>
+        <div class="feature-title">Eco-Friendly Stays</div>
+        <div class="feature-desc">We partner with sustainable hotels and local communities to ensure your travel leaves a positive impact.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💸</div>
+        <div class="feature-title">Best Price Guarantee</div>
+        <div class="feature-desc">Enjoy premium experiences at the best prices, with transparent billing and no hidden fees.</div>
+      </div>
+    </div>
+    <p class="about-text">
+  Join thousands of happy travelers who have discovered the magic of India with <span class="about-highlight">Vaishu</span>. Your journey, our expertise.
+    </p>
+    <div class="about-footer">
+      <strong>Contact us:</strong> support@vaishu.com &nbsp;|&nbsp; Mumbai, India
+    </div>
+  </div>
+</body>
+</html>
