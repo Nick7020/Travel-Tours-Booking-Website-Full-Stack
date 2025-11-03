@@ -26,6 +26,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-y: auto;
   overflow-x: hidden;
+  padding-top: 70px; /* Offset for fixed navbar */
 }
 
 /* Fixed logo */
@@ -36,6 +37,63 @@ body {
   width: 140px;
   height: auto;
   z-index: 1200
+}
+
+/* Navigation Bar Styles */
+.navbar {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2rem;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #6366f1;
+}
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.navbar-links li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+.navbar-links li a:hover {
+  color: #6366f1;
+}
+.navbar-book-btn {
+  background: linear-gradient(135deg, #6366f1, #10b981);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.5rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(99,102,241,0.08);
+  transition: background 0.2s;
+}
+.navbar-book-btn:hover {
+  background: linear-gradient(135deg, #10b981, #6366f1);
 }
 
 /* Page layout - full viewport */
@@ -136,7 +194,7 @@ body {
 
 /* Hero */
 #hero {
-  background-image: url('first.jpeg');
+  background-image: url('assets/images/first.jpeg');
   background-size: cover;
   background-position: center;
   color: white;
@@ -189,7 +247,7 @@ body {
 
 /* Wonderful India - big background with only heading */
 #wonderful {
-  background-image: url('2.png');
+  background-image: url('assets/images/2.png');
   background-size: cover;
   background-position: center;
   color: #fff;
@@ -625,6 +683,13 @@ body {
   background-repeat: no-repeat;
   padding: 40px;
   overflow: hidden;
+}
+#offerings {
+  background-image: url('assets/images/offerings-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
 /* Overlay for blur + dark effect */
