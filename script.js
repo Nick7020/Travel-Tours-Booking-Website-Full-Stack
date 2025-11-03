@@ -555,10 +555,115 @@ const heroBookingBtn = document.getElementById('bookYourJourneyBtn');
 const heroModal = document.getElementById('heroBookingModal');
 const heroModalClose = document.getElementById('heroModalClose');
 const packageCards = document.querySelectorAll('.package-type-card');
+const heroPackageSelect = document.getElementById('heroPackage');
+const packageInfo = document.getElementById('packageInfo');
+const packageInfoTitle = document.getElementById('packageInfoTitle');
+const packageInfoDetails = document.getElementById('packageInfoDetails');
+const heroDateInput = document.getElementById('heroDate');
+const numTravelersSelect = document.getElementById('numTravelers');
+
+// Package information data
+const packageData = {
+  "Nature Escape": {
+    description: "Himachal & Manali Retreat",
+    bullets: [
+      "Explore forests and waterfalls",
+      "Camping under stars",
+      "Nature trails",
+      "Bird watching",
+      "Eco-friendly stays"
+    ]
+  },
+  "Romantic Gateways": {
+    description: "Udaipur & Mount Abu",
+    bullets: [
+      "Private candlelight dinners",
+      "Couple spa sessions",
+      "Sunset views",
+      "Luxury stays",
+      "Scenic walks"
+    ]
+  },
+  "Family Vacations": {
+    description: "Kerela Backwaters & Hills",
+    bullets: [
+      "Kid-friendly activities",
+      "Theme park visits",
+      "Resort stays",
+      "Guided tours",
+      "Fun family games"
+    ]
+  },
+  "Adventure Trips": {
+    description: "Leh Ladakh Expedition",
+    bullets: [
+      "Trekking and climbing",
+      "River rafting",
+      "Paragliding",
+      "Zip-lining",
+      "Campfires"
+    ]
+  },
+  "Village Escape": {
+    description: "The Soul of Meghalaya",
+    bullets: [
+      "Stay in traditional homes",
+      "Local cuisine tasting",
+      "Cultural performances",
+      "Farming experiences",
+      "Handicraft workshops"
+    ]
+  },
+  "Beach Bliss": {
+    description: "Goa Gateway",
+    bullets: [
+      "Sunbathing on golden sands",
+      "Beach sports",
+      "Water adventures",
+      "Seafood delights",
+      "Sunset cruises"
+    ]
+  },
+  "Into the Wild": {
+    description: "Ranthambore & Jim Corbett",
+    bullets: [
+      "Jungle safaris",
+      "Wildlife photography",
+      "Camping in wilderness",
+      "Birding tours",
+      "Eco trekking"
+    ]
+  },
+  "Culinary Trail": {
+    description: "Flavors of North India",
+    bullets: [
+      "Street food tasting",
+      "Cooking workshops",
+      "Food market visits",
+      "Chef interactions",
+      "Wine & local drinks"
+    ]
+  },
+  "Weekend Trails": {
+    description: "Mumbai & Around",
+    bullets: [
+      "Short weekend getaways",
+      "Quick adventures",
+      "Relaxing stays",
+      "Scenic routes",
+      "Easy bookings"
+    ]
+  }
+};
 
 heroBookingBtn.addEventListener('click', () => {
   heroModal.style.display = 'flex';
   heroModal.setAttribute('aria-hidden', 'false');
+  
+  // Set min date to today
+  const today = new Date().toISOString().split('T')[0];
+  heroDateInput.min = today;
+  heroDateInput.value = today;
 });
 
 heroModalClose.addEventListener('click', () => {
@@ -573,6 +678,75 @@ heroModal.addEventListener('click', (e) => {
     heroModal.setAttribute('aria-hidden', 'true');
   }
 });
+
+// Display package information when a package is selected
+heroPackageSelect.addEventListener('change', function() {
+  updatePackageInfo();
+});
+
+// Update package info when date or number of travelers changes
+heroDateInput.addEventListener('change', updatePackageInfo);
+numTravelersSelect.addEventListener('change', function() {
+  // Add visual feedback when travelers count changes
+  const travelersValue = document.querySelector('.detail-value');
+  if (travelersValue) {
+    travelersValue.classList.add('updated');
+    setTimeout(() => {
+      travelersValue.classList.remove('updated');
+    }, 1000);
+  }
+  updatePackageInfo();
+});
+
+// Function to update package information display
+function updatePackageInfo() {
+  const selectedPackage = heroPackageSelect.value;
+  const selectedDate = heroDateInput.value;
+  const numTravelers = numTravelersSelect.value;
+  
+  if (selectedPackage && packageData[selectedPackage]) {
+    // Show package information
+    packageInfo.style.display = 'block';
+    packageInfoTitle.textContent = selectedPackage;
+    
+    // Format the selected date for display
+    let formattedDate = 'Not selected';
+    if (selectedDate) {
+      const dateObj = new Date(selectedDate);
+      formattedDate = dateObj.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+    }
+    
+    // Create HTML for package details
+    let detailsHTML = `
+      <p><strong>${packageData[selectedPackage].description}</strong></p>
+      <div class="package-details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Travel Date:</span>
+          <span class="detail-value">${formattedDate}</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Travelers:</span>
+          <span class="detail-value">${numTravelers} person${numTravelers > 1 ? 's' : ''}</span>
+        </div>
+      </div>
+      <ul>`;
+      
+    packageData[selectedPackage].bullets.forEach(bullet => {
+      detailsHTML += `<li>${bullet}</li>`;
+    });
+    detailsHTML += '</ul>';
+    
+    packageInfoDetails.innerHTML = detailsHTML;
+  } else {
+    // Hide package information if no package is selected
+    packageInfo.style.display = 'none';
+  }
+}
 
 // Select package type
 packageCards.forEach(card => {
@@ -612,6 +786,11 @@ document.getElementById('heroBookingForm').addEventListener('submit', async func
   if (success) {
     e.target.reset();
     heroModal.style.display = 'none';
+    packageInfo.style.display = 'none'; // Hide package info on successful submission
+    
+    // Reset date to today
+    const today = new Date().toISOString().split('T')[0];
+    heroDateInput.value = today;
   }
 });
 

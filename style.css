@@ -616,6 +616,75 @@ body {
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
+
+/* Package Information Display */
+.package-info {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  display: none;
+}
+
+.package-info h3 {
+  color: #f97316;
+  margin-bottom: 10px;
+}
+
+.package-info ul {
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.package-info li {
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.package-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.detail-value {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Add animation for when details update */
+.detail-value {
+  transition: all 0.3s ease;
+}
+
+.detail-value.updated {
+  background-color: rgba(249, 115, 22, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+@media (max-width: 640px) {
+  .package-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Offerings grid 2x2 */
 #offerings {
   position: relative;
